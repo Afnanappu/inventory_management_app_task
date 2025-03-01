@@ -13,10 +13,10 @@ class BottomNavBar extends StatelessWidget {
         context.go('/home');
         break;
       case 1:
-        context.go('/inventory');
+        context.go('/sales');
         break;
       case 2:
-        context.go('/sales');
+        context.go('/inventory');
         break;
     }
   }
