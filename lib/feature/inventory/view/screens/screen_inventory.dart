@@ -42,9 +42,12 @@ class ScreenInventory extends ConsumerWidget {
                     );
               },
               error: (error, stackTrace) {
-                return Center(child: Text(error.toString()));
+                return Expanded(child: Center(child: Text(error.toString())));
               },
-              loading: () => const CircularProgressIndicator.adaptive(),
+              loading:
+                  () => Expanded(
+                    child: const CircularProgressIndicator.adaptive(),
+                  ),
             ),
           ],
         ),

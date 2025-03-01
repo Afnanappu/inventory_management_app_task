@@ -1,8 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inventory_management_app_task/core/widgets/bottom_nav_bar.dart';
+import 'package:inventory_management_app_task/feature/customers/view/screens/screen_customers.dart';
 import 'package:inventory_management_app_task/feature/home/view/screens/screen_home.dart';
 import 'package:inventory_management_app_task/feature/inventory/view/screens/screen_add_or_update_inventory.dart';
 import 'package:inventory_management_app_task/feature/inventory/view/screens/screen_inventory.dart';
@@ -66,10 +66,10 @@ final GoRouter router = GoRouter(
         return ScreenAddOrUpdateInventory();
       },
     ),
-    // GoRoute(
-    //   path: '/record_sale',
-    //   builder: (context, state) => const RecordSaleScreen(),
-    // ),
+    GoRoute(
+      path: AppRoutes.customers,
+      builder: (context, state) => const ScreenCustomers(),
+    ),
     // GoRoute(
     //   path: '/customers',
     //   builder: (context, state) => const CustomersScreen(),
