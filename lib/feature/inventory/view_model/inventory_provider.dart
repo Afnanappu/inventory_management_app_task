@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:inventory_management_app_task/core/utils/custom_reg_exp.dart';
 import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
 import 'package:inventory_management_app_task/feature/inventory/repository/inventory_repository.dart';
 import 'package:inventory_management_app_task/feature/inventory/services/inventory_services.dart';
@@ -13,13 +14,26 @@ class InventoryProvider
     fetchAllItems(); // Load data initially
   }
 
-  ///Fetch all items from the inventory
-  Future<void> fetchAllItems() async {
+  ///Fetch all items from the inventory. use value to search
+  Future<void> fetchAllItems([String? value]) async {
     try {
       state = const AsyncValue.loading(); // loading
 
       final items = await _repository.getAllItems(); //fetching data
 
+      //Filter items based on search
+      if (value != null && !CustomRegExp.checkEmptySpaces(value)) {
+        final filteredList =
+            items
+                .where(
+                  (element) =>
+                      element.name.contains(value) ||
+                      element.description.contains(value),
+                )
+                .toList();
+        state = AsyncValue.data(filteredList);
+        return;
+      }
       state = AsyncValue.data(items); // updating the state with new data
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace); // set state as error

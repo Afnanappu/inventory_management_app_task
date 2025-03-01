@@ -1,6 +1,5 @@
 import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
 import 'package:inventory_management_app_task/feature/inventory/services/inventory_services.dart';
-import 'package:realm/realm.dart';
 
 class InventoryRepository {
   final InventoryServices _inventoryServices;
