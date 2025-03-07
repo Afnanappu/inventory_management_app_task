@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inventory_management_app_task/core/components/custom_pop_up_menu_button.dart';
-import 'package:inventory_management_app_task/feature/customers/models/customer_model.dart';
+import 'package:inventory_management_app_task/core/components/custom_floating_action_button.dart';
+import 'package:inventory_management_app_task/feature/customers/view/components/customer_tile.dart';
+import 'package:inventory_management_app_task/feature/customers/view/components/show_add_customer_dialog.dart';
 import 'package:inventory_management_app_task/feature/customers/view_model/customer_provider.dart';
-import 'package:realm/realm.dart';
 
 class ScreenCustomers extends ConsumerWidget {
   const ScreenCustomers({super.key});
@@ -13,7 +13,6 @@ class ScreenCustomers extends ConsumerWidget {
     final customerState = ref.watch(customerProvider);
 
     return Scaffold(
-      //TODO: change ui
       appBar: AppBar(title: const Text('Customers')),
       body: customerState.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -22,37 +21,30 @@ class ScreenCustomers extends ConsumerWidget {
             (customers) =>
                 customers.isEmpty
                     ? const Center(child: Text('No customers available'))
-                    : ListView.builder(
-                      itemCount: customers.length,
-                      itemBuilder: (context, index) {
-                        final customer = customers[index];
-                        return ListTile(
-                          title: Text(customer.name),
-                          subtitle: Text(customer.phone),
-                          trailing: CustomPopupMenuButton(
-                            onEditPressed: () {}, //TODO: add edit option
-                            onDeletePressed: () {
-                              ref
-                                  .read(customerProvider.notifier)
-                                  .deleteCustomer(customer.id);
-                            },
-                          ),
-                        );
-                      },
+                    : Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 5,
+                      ),
+                      child: ListView.builder(
+                        itemCount: customers.length,
+                        itemBuilder: (context, index) {
+                          final customer = customers[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: CustomerTile(customer: customer),
+                          );
+                        },
+                      ),
                     ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: CustomFloatingActionButton(
         onPressed: () async {
-          // Example: Adding a dummy customer for testing
-          final newCustomer = CustomerModel(
-            ObjectId().toString(),
-            'John Doe',
-            '9947907247',
-          );
-          await ref.read(customerProvider.notifier).addCustomer(newCustomer);
+          showAddCustomerDialog(context, ref, null);
         },
-        child: const Icon(Icons.add),
+        text: 'Add customer',
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

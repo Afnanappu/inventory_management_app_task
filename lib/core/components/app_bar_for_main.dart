@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/core/constants/font_styles.dart';
-import 'package:inventory_management_app_task/core/constants/screen_size.dart';
 
 class AppBarForMain extends StatelessWidget implements PreferredSizeWidget {
   const AppBarForMain({

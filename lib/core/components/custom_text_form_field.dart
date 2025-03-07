@@ -1,44 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:inventory_management_app_task/core/constants/colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
-    required this.label,
+    this.label,
     required this.controller,
     this.prefixIcon,
     required this.hintText,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
     this.validator,
+    this.focusNode,
+    this.suffix,
   });
 
-  final String label;
+  final String? label;
   final TextEditingController controller;
   final IconData? prefixIcon;
+  final Widget? suffix;
   final String hintText;
   final TextInputType keyboardType;
   final int maxLines;
   final String? Function(String?)? validator;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 8),
-          child: Text(
-            label,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+        if (label != null)
+          Padding(
+            padding: const EdgeInsets.only(left: 4, bottom: 8),
+            child: Text(
+              label!,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+            ),
           ),
-        ),
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
           maxLines: maxLines,
+          focusNode: focusNode,
           decoration: InputDecoration(
+            suffixIcon: suffix,
             hintText: hintText,
-            prefixIcon: Icon(prefixIcon, color: Colors.blue),
+            prefixIcon:
+                prefixIcon == null
+                    ? null
+                    : Icon(prefixIcon, color: AppColors.darkGrey),
             filled: true,
 
             fillColor: Colors.white,
@@ -56,7 +67,7 @@ class CustomTextFormField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.blue, width: 1.5),
+              borderSide: const BorderSide(color: AppColors.green, width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

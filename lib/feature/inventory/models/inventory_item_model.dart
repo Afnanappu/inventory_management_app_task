@@ -28,4 +28,9 @@ class _InventoryItemModel {
       price ?? this.price,
     );
   }
+
+  @override
+  String toString() {
+    return 'InventoryItemModel(id: $id, name: $name, description: $description, quantity: $quantity, price: $price)';
+  }
 }

@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:inventory_management_app_task/app_dependencies.dart';
 import 'package:inventory_management_app_task/feature/customers/models/customer_model.dart';
 import 'package:inventory_management_app_task/feature/customers/repository/customer_repository.dart';
 import 'package:inventory_management_app_task/feature/customers/services/customer_services.dart';
-import 'package:inventory_management_app_task/main.dart';
 
 class CustomerProvider extends StateNotifier<AsyncValue<List<CustomerModel>>> {
   final CustomerRepository _repository;
@@ -52,6 +52,16 @@ class CustomerProvider extends StateNotifier<AsyncValue<List<CustomerModel>>> {
       fetchAllCustomers(); // Refresh list after deletion
     } catch (e, stackTrace) {
       log('Error deleting customer: $e', stackTrace: stackTrace);
+    }
+  }
+
+  ///
+ CustomerModel? getCustomerById(String id)  {
+    try {
+      return  _repository.getCustomerById(id);
+    } catch (e, stackTrace) {
+      log('Error deleting customer: $e', stackTrace: stackTrace);
+      return null;
     }
   }
 }

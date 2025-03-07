@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inventory_management_app_task/core/components/custom_text_form_field.dart';
+import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
 import 'package:inventory_management_app_task/feature/inventory/view_model/inventory_provider.dart';
 import 'package:realm/realm.dart';
@@ -160,7 +161,7 @@ class ScreenAddOrUpdateInventory extends ConsumerWidget {
                     child: ElevatedButton(
                       onPressed: () => _saveItem(context, ref),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: AppColors.green,
                         foregroundColor: Colors.white,
                         elevation: 0,
 

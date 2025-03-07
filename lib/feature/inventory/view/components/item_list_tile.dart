@@ -33,33 +33,29 @@ class ItemListTile extends ConsumerWidget {
         ),
         child: ListTile(
           onTap: onTap,
-
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  itemModel.name,
-                  style: AppFontStyle.saleTile,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              CustomPopupMenuButton(
-                onEditPressed: () {
-                  context.push(
-                    AppRoutes.addOrUpdateItem,
-                    extra: {"isEdit": true, "itemModel": itemModel},
-                  );
-                }, 
-                onDeletePressed: () {
-                  // provider to delete the item
-                  provider.deleteItem(itemModel.id);
-                },
-              ),
-            ],
+          trailing: CustomPopupMenuButton(
+            onEditPressed: () {
+              context.push(
+                AppRoutes.addOrUpdateItem,
+                extra: {"isEdit": true, "itemModel": itemModel},
+              );
+            },
+            onDeletePressed: () {
+              // provider to delete the item
+              provider.deleteItem(itemModel.id);
+            },
+          ),
+          title: Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text(
+              itemModel.name,
+              style: AppFontStyle.saleTile,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
             children: [
               Text(
                 (itemModel.quantity >= 1)
@@ -74,7 +70,7 @@ class ItemListTile extends ConsumerWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 10),
+
               Text(
                 formatMoney(number: itemModel.price),
                 style: AppFontStyle.saleTile,

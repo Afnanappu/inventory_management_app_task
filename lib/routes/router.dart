@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inventory_management_app_task/core/widgets/bottom_nav_bar.dart';
@@ -6,6 +5,7 @@ import 'package:inventory_management_app_task/feature/customers/view/screens/scr
 import 'package:inventory_management_app_task/feature/home/view/screens/screen_home.dart';
 import 'package:inventory_management_app_task/feature/inventory/view/screens/screen_add_or_update_inventory.dart';
 import 'package:inventory_management_app_task/feature/inventory/view/screens/screen_inventory.dart';
+import 'package:inventory_management_app_task/feature/sales/view/screens/screen_sale_add.dart';
 import 'package:inventory_management_app_task/feature/sales/view/screens/screen_sales.dart';
 import 'package:inventory_management_app_task/routes/router_name.dart';
 
@@ -35,7 +35,7 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: AppRoutes.sales,
-              builder: (context, state) => const ScreenSales(),
+              builder: (context, state) =>  ScreenSales(),
             ),
           ],
         ),
@@ -70,10 +70,10 @@ final GoRouter router = GoRouter(
       path: AppRoutes.customers,
       builder: (context, state) => const ScreenCustomers(),
     ),
-    // GoRoute(
-    //   path: '/customers',
-    //   builder: (context, state) => const CustomersScreen(),
-    // ),
+    GoRoute(
+      path: AppRoutes.addSale,
+      builder: (context, state) =>  ScreenSaleAdd(),
+    ),
     // GoRoute(
     //   path: '/customer_details',
     //   builder: (context, state) => const CustomerDetailsScreen(),

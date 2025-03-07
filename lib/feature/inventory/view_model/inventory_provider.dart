@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:inventory_management_app_task/app_dependencies.dart';
 import 'package:inventory_management_app_task/core/utils/custom_reg_exp.dart';
 import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
 import 'package:inventory_management_app_task/feature/inventory/repository/inventory_repository.dart';
 import 'package:inventory_management_app_task/feature/inventory/services/inventory_services.dart';
-import 'package:inventory_management_app_task/main.dart';
 
 class InventoryProvider
     extends StateNotifier<AsyncValue<List<InventoryItemModel>>> {
@@ -13,6 +13,9 @@ class InventoryProvider
   InventoryProvider(this._repository) : super(const AsyncValue.loading()) {
     fetchAllItems(); // Load data initially
   }
+
+  /// Get loaded data
+  List<InventoryItemModel> get data => state.asData?.value ?? [];
 
   ///Fetch all items from the inventory. use value to search
   Future<void> fetchAllItems([String? value]) async {
@@ -75,13 +78,12 @@ class InventoryProvider
   }
 
   ///Get an item with id from the inventory
-  Future<void> getItemById(String id) async {
+  InventoryItemModel? getItemById(String id) {
     try {
-      await _repository.getItemById(id);
-      fetchAllItems(); // Refresh data
+      return _repository.getItemById(id);
     } catch (e, stackTrace) {
-      state = AsyncValue.error(e, stackTrace);
       log(e.toString(), stackTrace: stackTrace);
+      return null;
     }
   }
 }

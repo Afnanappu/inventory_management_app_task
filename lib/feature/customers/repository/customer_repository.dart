@@ -17,7 +17,7 @@ class CustomerRepository {
   }
 
   /// Get a customer by ID asynchronously
-  Future<CustomerModel?> getCustomerById(String id) async {
+  CustomerModel? getCustomerById(String id) {
     return _customerServices.getCustomerById(id);
   }
 

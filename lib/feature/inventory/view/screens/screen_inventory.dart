@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inventory_management_app_task/core/components/custom_floating_action_button.dart';
 import 'package:inventory_management_app_task/core/components/custom_search_bar.dart';
+import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/feature/inventory/view/components/item_list_tile.dart';
 import 'package:inventory_management_app_task/feature/inventory/view_model/inventory_provider.dart';
 import 'package:inventory_management_app_task/routes/router_name.dart';
@@ -51,12 +53,11 @@ class ScreenInventory extends ConsumerWidget {
             ),
           ],
         ),
-        floatingActionButton: ElevatedButton.icon(
-          icon: Icon(Icons.add),
+        floatingActionButton: CustomFloatingActionButton(
           onPressed: () {
             context.push(AppRoutes.addOrUpdateItem);
           },
-          label: Text("Add new item"),
+          text: "Add new item",
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),

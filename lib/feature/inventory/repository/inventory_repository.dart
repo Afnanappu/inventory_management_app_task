@@ -17,7 +17,7 @@ class InventoryRepository {
   }
 
   ///Get a single item by ID
-  Future<InventoryItemModel?> getItemById(String id) async {
+  InventoryItemModel? getItemById(String id) {
     return _inventoryServices.getItemById(id);
   }
 
