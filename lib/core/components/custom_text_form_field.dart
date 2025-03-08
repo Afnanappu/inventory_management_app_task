@@ -13,6 +13,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.focusNode,
     this.suffix,
+    this.maxLength,
   });
 
   final String? label;
@@ -22,8 +23,9 @@ class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final TextInputType keyboardType;
   final int maxLines;
-  final String? Function(String?)? validator;
+  final String? Function(String? value)? validator;
   final FocusNode? focusNode;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +45,10 @@ class CustomTextFormField extends StatelessWidget {
           keyboardType: keyboardType,
           maxLines: maxLines,
           focusNode: focusNode,
+          maxLength: maxLength,
           decoration: InputDecoration(
             suffixIcon: suffix,
+            counterText: '',
             hintText: hintText,
             prefixIcon:
                 prefixIcon == null

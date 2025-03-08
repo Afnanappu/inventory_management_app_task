@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
+import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 import 'package:realm/realm.dart';
 
 class InventoryServices {
@@ -41,5 +44,27 @@ class InventoryServices {
         _realm.delete(item);
       }
     });
+  }
+
+  ///Deduct the item quantity from sales item
+  void deductItemQuantity(RealmList<SaleItemModel> items) {
+    // final items = sales.saleItems;
+
+    try {
+      _realm.write(() {
+        for (var item in items) {
+          log(item.productId);
+          final product = _realm.find<InventoryItemModel>(
+            item.productId,
+          ); //finding the item/product
+          final newProduct = product!.copyWith(
+            quantity: product.quantity - item.quantity,
+          ); //deduct the quantity
+          _realm.add(newProduct, update: true); //update item
+        }
+      });
+    } catch (e, stack) {
+      log(e.toString(), stackTrace: stack);
+    }
   }
 }

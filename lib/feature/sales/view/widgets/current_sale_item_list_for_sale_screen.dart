@@ -2,25 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/core/utils/format_money.dart';
-import 'package:inventory_management_app_task/feature/customers/models/customer_model.dart';
-import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
 import 'package:inventory_management_app_task/feature/inventory/view_model/inventory_provider.dart';
-import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 import 'package:inventory_management_app_task/feature/sales/view_model/sales_provider.dart';
 
 class CurrentSaleItemListForSaleScreen extends ConsumerWidget {
-  final CustomerModel? customer;
-  final Function(SalesModel)? onRemoveItem;
-  final Function(SalesModel, InventoryItemModel)? onEditItem;
-
-  const CurrentSaleItemListForSaleScreen({
-    super.key,
-    this.customer,
-    this.onRemoveItem,
-    this.onEditItem,
-  });
+  const CurrentSaleItemListForSaleScreen({super.key});
 
   void customAlertBox({
     required BuildContext context,
@@ -53,14 +42,12 @@ class CurrentSaleItemListForSaleScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final saleItems = ref.watch(selectedSaleItemProvider);
-    log(saleItems.toString());
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: saleItems.length,
       itemBuilder: (context, index) {
         final sale = saleItems[index];
-        log(sale.toString());
         final item =
             ref.read(inventoryProvider.notifier).getItemById(sale.productId)!;
 
@@ -69,8 +56,7 @@ class CurrentSaleItemListForSaleScreen extends ConsumerWidget {
           child: Stack(
             children: [
               ListTile(
-                onTap: () {},
-
+                onTap: null,
                 tileColor: const Color.fromARGB(255, 243, 255, 227),
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,13 +111,21 @@ class CurrentSaleItemListForSaleScreen extends ConsumerWidget {
                               content: const Text('Are you sure?'),
                               actions: [
                                 TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
+                                  onPressed: () => context.pop(),
                                   child: const Text('No'),
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    // onRemoveItem!(sale);
-                                    Navigator.of(context).pop();
+                                    ref
+                                        .read(selectedSaleItemProvider.notifier)
+                                        .state = ref
+                                            .read(selectedSaleItemProvider)
+                                            .where(
+                                              (element) =>
+                                                  element.id != sale.id,
+                                            )
+                                            .toList();
+                                    context.pop();
                                   },
                                   child: const Text('Yes'),
                                 ),

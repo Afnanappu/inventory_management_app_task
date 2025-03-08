@@ -7,9 +7,11 @@ final getIt = GetIt.instance;
 
 class AppDependencies {
   ///Inject dependence
- static void setup() {
+  static void setup() {
     getIt.registerSingleton<InventoryServices>(InventoryServices()); //
     getIt.registerSingleton<CustomerServices>(CustomerServices()); //
-    getIt.registerSingleton<SalesService>(SalesService()); //
+    getIt.registerSingleton<SalesService>(
+      SalesService(getIt.get<InventoryServices>()),
+    ); //
   }
 }

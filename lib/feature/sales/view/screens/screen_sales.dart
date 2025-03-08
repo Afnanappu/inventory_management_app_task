@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory_management_app_task/core/components/custom_floating_action_button.dart';
-import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/feature/customers/view_model/customer_provider.dart';
 import 'package:inventory_management_app_task/feature/sales/view_model/sales_provider.dart';
 import 'package:inventory_management_app_task/routes/router_name.dart';

@@ -1,11 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:inventory_management_app_task/app_dependencies.dart';
 import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 import 'package:inventory_management_app_task/feature/sales/repository/sales_repository.dart';
 import 'package:inventory_management_app_task/feature/sales/services/sales_service.dart';
-import 'dart:developer';
-
-import 'package:inventory_management_app_task/main.dart';
 
 class SalesProvider extends StateNotifier<AsyncValue<List<SalesModel>>> {
   final SalesRepository _repository;

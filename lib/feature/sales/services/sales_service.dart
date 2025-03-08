@@ -1,10 +1,14 @@
+import 'dart:developer';
+
+import 'package:inventory_management_app_task/feature/inventory/services/inventory_services.dart';
 import 'package:realm/realm.dart';
 import '../models/sales_model.dart';
 
 class SalesService {
+  final InventoryServices _inventoryServices;
   late final Realm _realm;
 
-  SalesService() {
+  SalesService(this._inventoryServices) {
     final config = Configuration.local([
       SalesModel.schema,
       SaleItemModel.schema,
@@ -14,9 +18,16 @@ class SalesService {
 
   /// Adds a new sale record
   Future<void> addSale(SalesModel sale) async {
-    _realm.write(() {
-      _realm.add(sale);
-    });
+    try {
+      _realm.write(() {
+        _realm.add(sale);
+      });
+      _inventoryServices.deductItemQuantity(sale.saleItems);
+    } on RealmException catch (e, stack) {
+      log('${e.message}\n${e.helpLink}', stackTrace: stack);
+    } on RealmError catch (e, stack) {
+      log(e.message.toString(), stackTrace: stack);
+    }
   }
 
   /// Retrieves all sales records

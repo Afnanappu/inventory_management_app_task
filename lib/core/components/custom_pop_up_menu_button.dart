@@ -1,11 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:inventory_management_app_task/core/components/show_delete_confirmation_dialog.dart';
 
 class CustomPopupMenuButton extends StatelessWidget {
   final Function() onEditPressed;
   final Function() onDeletePressed;
   final Color? iconColor;
   final Color? menuBackgroundColor;
+  final String title;
 
   const CustomPopupMenuButton({
     super.key,
@@ -13,6 +16,7 @@ class CustomPopupMenuButton extends StatelessWidget {
     required this.onDeletePressed,
     this.iconColor,
     this.menuBackgroundColor,
+    required this.title,
   });
 
   @override
@@ -40,7 +44,13 @@ class CustomPopupMenuButton extends StatelessWidget {
               icon: Icons.delete_outline,
               onTap: () {
                 // Schedule the delete dialog after the current build phase
-                Future.microtask(() => _showDeleteConfirmationDialog(context));
+                Future.microtask(
+                  () => showDeleteConfirmationDialog(
+                    context: context,
+                    onDeletePressed: onDeletePressed,
+                    title: title,
+                  ),
+                );
               },
               iconColor: Colors.red,
             ),
@@ -71,66 +81,6 @@ class CustomPopupMenuButton extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  void _showDeleteConfirmationDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text(
-              'Delete Item',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-            content: const Text(
-              'Are you sure you want to delete this item?',
-              style: TextStyle(fontSize: 16),
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  context.pop();
-                },
-                style: TextButton.styleFrom(foregroundColor: Colors.grey[800]),
-                child: const Text(
-                  'Cancel',
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context.pop();
-                  onDeletePressed();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  elevation: 0,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 10,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
-                  'Delete',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-            actionsPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
-            ),
-          ),
     );
   }
 }

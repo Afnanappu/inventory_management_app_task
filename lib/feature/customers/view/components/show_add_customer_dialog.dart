@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inventory_management_app_task/core/components/custom_text_form_field.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
+import 'package:inventory_management_app_task/core/utils/custom_reg_exp.dart';
 import 'package:inventory_management_app_task/feature/customers/models/customer_model.dart';
 import 'package:inventory_management_app_task/feature/customers/view_model/customer_provider.dart';
 import 'package:realm/realm.dart';
@@ -13,10 +15,12 @@ void showAddCustomerDialog(
 ) {
   final nameController = TextEditingController(text: customer?.name);
   final phoneController = TextEditingController(text: customer?.phone);
+  final formKey = GlobalKey<FormState>();
   showDialog(
     context: context,
     builder:
         (context) => AlertDialog(
+          backgroundColor: AppColors.scaffoldBackgroundColor,
           title: Text(
             customer == null ? 'Add Customer' : 'Update Customer',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -25,19 +29,46 @@ void showAddCustomerDialog(
             horizontal: 16,
             vertical: 12,
           ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: phoneController,
-                decoration: const InputDecoration(labelText: 'Phone'),
-                keyboardType: TextInputType.phone,
-              ),
-            ],
+          content: Form(
+            key: formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 10,
+              children: [
+                CustomTextFormField(
+                  controller: nameController,
+                  hintText: 'Name',
+                  validator: (value) {
+                    if (!CustomRegExp.checkName(value)) {
+                      return 'Name is not valid';
+                    }
+                    return null;
+                  },
+                ),
+
+                CustomTextFormField(
+                  controller: phoneController,
+                  hintText: 'Phone',
+                  maxLength: 10,
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (!CustomRegExp.checkPhoneNumber(value)) {
+                      return 'number is not valid';
+                    }
+                    return null;
+                  },
+                ),
+                // TextField(
+                //   controller: nameController,
+                //   decoration: const InputDecoration(labelText: 'Name'),
+                // ),
+                // TextField(
+                //   controller: phoneController,
+                //   decoration: const InputDecoration(labelText: 'Phone'),
+                //   keyboardType: TextInputType.phone,
+                // ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -52,6 +83,9 @@ void showAddCustomerDialog(
             ),
             ElevatedButton(
               onPressed: () {
+                if (!formKey.currentState!.validate()) {
+                  return;
+                }
                 final name = nameController.text.trim();
                 final phone = phoneController.text.trim();
                 if (name.isNotEmpty && phone.isNotEmpty) {

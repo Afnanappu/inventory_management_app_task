@@ -39,7 +39,7 @@ class CustomerTile extends ConsumerWidget {
           },
           onDeletePressed: () {
             provider.deleteCustomer(customer.id);
-          },
+          }, title: 'customer',
         ),
       ),
     );

@@ -120,16 +120,23 @@ class SalesModel extends _SalesModel
 class SaleItemModel extends _SaleItemModel
     with RealmEntity, RealmObjectBase, RealmObject {
   SaleItemModel(
+    String id,
     String productId,
     int quantity,
     double price,
   ) {
+    RealmObjectBase.set(this, 'id', id);
     RealmObjectBase.set(this, 'productId', productId);
     RealmObjectBase.set(this, 'quantity', quantity);
     RealmObjectBase.set(this, 'price', price);
   }
 
   SaleItemModel._();
+
+  @override
+  String get id => RealmObjectBase.get<String>(this, 'id') as String;
+  @override
+  set id(String value) => throw RealmUnsupportedSetError();
 
   @override
   String get productId =>
@@ -161,6 +168,7 @@ class SaleItemModel extends _SaleItemModel
 
   EJsonValue toEJson() {
     return <String, dynamic>{
+      'id': id.toEJson(),
       'productId': productId.toEJson(),
       'quantity': quantity.toEJson(),
       'price': price.toEJson(),
@@ -172,11 +180,13 @@ class SaleItemModel extends _SaleItemModel
     if (ejson is! Map<String, dynamic>) return raiseInvalidEJson(ejson);
     return switch (ejson) {
       {
+        'id': EJsonValue id,
         'productId': EJsonValue productId,
         'quantity': EJsonValue quantity,
         'price': EJsonValue price,
       } =>
         SaleItemModel(
+          fromEJson(id),
           fromEJson(productId),
           fromEJson(quantity),
           fromEJson(price),
@@ -190,6 +200,7 @@ class SaleItemModel extends _SaleItemModel
     register(_toEJson, _fromEJson);
     return const SchemaObject(
         ObjectType.realmObject, SaleItemModel, 'SaleItemModel', [
+      SchemaProperty('id', RealmPropertyType.string),
       SchemaProperty('productId', RealmPropertyType.string),
       SchemaProperty('quantity', RealmPropertyType.int),
       SchemaProperty('price', RealmPropertyType.double),

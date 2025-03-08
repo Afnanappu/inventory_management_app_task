@@ -44,6 +44,7 @@ class ItemListTile extends ConsumerWidget {
               // provider to delete the item
               provider.deleteItem(itemModel.id);
             },
+            title: 'item',
           ),
           title: Padding(
             padding: const EdgeInsets.only(bottom: 8),
