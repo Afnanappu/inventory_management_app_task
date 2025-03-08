@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:inventory_management_app_task/core/components/custom_floating_action_button.dart';
 import 'package:inventory_management_app_task/feature/customers/view_model/customer_provider.dart';
+import 'package:inventory_management_app_task/feature/sales/view/components/sale_list_tile.dart';
 import 'package:inventory_management_app_task/feature/sales/view_model/sales_provider.dart';
 import 'package:inventory_management_app_task/routes/router_name.dart';
 
@@ -30,11 +30,11 @@ class ScreenSales extends ConsumerWidget {
                           final customer = ref
                               .read(customerNotifier)
                               .getCustomerById(sale.customerId);
-                          return ListTile(
-                            title: Text(customer?.name ?? 'Customer'),
-                            subtitle: Text(
-                              DateFormat.MMMMEEEEd().format(sale.date),
-                            ),
+                          return SaleListTile(
+                            customerName: customer?.name ?? 'Customer',
+                            saleAddDate: sale.date,
+                            itemPrice: sale.totalAmount.toString(),
+                            onTap: () {},
                           );
                         },
                       ),
