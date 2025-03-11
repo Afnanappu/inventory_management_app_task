@@ -14,13 +14,15 @@ void showAddCustomerDialog(
   CustomerModel? customer,
 ) {
   final nameController = TextEditingController(text: customer?.name);
+  final addressController = TextEditingController(text: customer?.address);
   final phoneController = TextEditingController(text: customer?.phone);
   final formKey = GlobalKey<FormState>();
+  
   showDialog(
     context: context,
     builder:
         (context) => AlertDialog(
-          backgroundColor: AppColors.scaffoldBackgroundColor,
+          backgroundColor: AppColors.scaffoldBackground,
           title: Text(
             customer == null ? 'Add Customer' : 'Update Customer',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -45,6 +47,16 @@ void showAddCustomerDialog(
                     return null;
                   },
                 ),
+                CustomTextFormField(
+                  controller: addressController,
+                  hintText: 'Address',
+                  validator: (value) {
+                    if (!CustomRegExp.checkName(value)) {
+                      return 'Name is not valid';
+                    }
+                    return null;
+                  },
+                ),
 
                 CustomTextFormField(
                   controller: phoneController,
@@ -58,15 +70,6 @@ void showAddCustomerDialog(
                     return null;
                   },
                 ),
-                // TextField(
-                //   controller: nameController,
-                //   decoration: const InputDecoration(labelText: 'Name'),
-                // ),
-                // TextField(
-                //   controller: phoneController,
-                //   decoration: const InputDecoration(labelText: 'Phone'),
-                //   keyboardType: TextInputType.phone,
-                // ),
               ],
             ),
           ),
@@ -88,27 +91,33 @@ void showAddCustomerDialog(
                 }
                 final name = nameController.text.trim();
                 final phone = phoneController.text.trim();
+                final address = addressController.text.trim();
                 if (name.isNotEmpty && phone.isNotEmpty) {
                   if (customer == null) {
                     //Creating new customer
                     ref
                         .read(customerProvider.notifier)
                         .addCustomer(
-                          CustomerModel(ObjectId().toJson(), name, phone),
+                          CustomerModel(
+                            ObjectId().toJson(),
+                            name,
+                            address,
+                            phone,
+                          ),
                         );
                   } else {
                     //Updating customer
                     ref
                         .read(customerProvider.notifier)
                         .updateCustomer(
-                          CustomerModel(customer.id, name, phone),
+                          CustomerModel(customer.id, name, address, phone),
                         );
                   }
                 }
                 context.pop();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.green,
+                backgroundColor: AppColors.primary,
                 elevation: 0,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,

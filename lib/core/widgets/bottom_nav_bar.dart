@@ -26,9 +26,9 @@ class BottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: selectedIndex,
       onTap: (index) => _onItemTapped(context, index),
-      selectedItemColor: AppColors.green,
-      selectedIconTheme: const IconThemeData(color: AppColors.green),
-      unselectedItemColor: AppColors.blackShade,
+      selectedItemColor: AppColors.primary,
+      selectedIconTheme: const IconThemeData(color: AppColors.primary),
+      unselectedItemColor: AppColors.textPrimary,
       showSelectedLabels: true,
       showUnselectedLabels: true,
       landscapeLayout: BottomNavigationBarLandscapeLayout.linear,

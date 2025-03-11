@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:inventory_management_app_task/core/components/show_delete_confirmation_dialog.dart';
 
 class CustomPopupMenuButton extends StatelessWidget {
-  final Function() onEditPressed;
-  final Function() onDeletePressed;
+  final void Function() onEditPressed;
+  final void Function() onDeletePressed;
   final Color? iconColor;
   final Color? menuBackgroundColor;
   final String title;

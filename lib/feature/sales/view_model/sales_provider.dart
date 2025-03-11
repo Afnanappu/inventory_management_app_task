@@ -24,6 +24,7 @@ class SalesProvider extends StateNotifier<AsyncValue<List<SalesModel>>> {
       state = const AsyncValue.loading();
       final sales = await _repository.getAllSales();
       state = AsyncValue.data(sales);
+      // sales.forEach((element) => log(element.toString()));
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);
       log('Error fetching sales: $e', stackTrace: stackTrace);
@@ -58,6 +59,11 @@ class SalesProvider extends StateNotifier<AsyncValue<List<SalesModel>>> {
     } catch (e, stackTrace) {
       log('Error deleting sale: $e', stackTrace: stackTrace);
     }
+  }
+
+  ///Get sales by ID
+  SalesModel getSaleById(String id) {
+    return _repository.getSaleById(id)!;
   }
 }
 

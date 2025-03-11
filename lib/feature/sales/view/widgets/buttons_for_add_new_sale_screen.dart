@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -13,18 +15,20 @@ import 'package:inventory_management_app_task/feature/sales/view_model/sales_pro
 import 'package:realm/realm.dart';
 
 class ButtonsForAddNewSaleScreen extends ConsumerWidget {
+  final DateTime selectedDate;
   final StateProvider<CustomerModel?> selectedCustomerProvider;
 
   const ButtonsForAddNewSaleScreen({
     super.key,
     required this.selectedCustomerProvider,
+    required this.selectedDate,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BottomAppBar(
       height: 85,
-      color: AppColors.white,
+      color: AppColors.surfaceWhite,
       child: Row(
         children: [
           Expanded(
@@ -32,10 +36,13 @@ class ButtonsForAddNewSaleScreen extends ConsumerWidget {
               text: 'Save&New',
               haveBorder: true,
               btnColor: AppColors.transparent,
-              onTap: () {
-                addSale(context, ref); //Create new sale
-                ref.read(selectedCustomerProvider.notifier).state =
-                    null; //Resetting customer selection field
+              onTap: () async {
+                addSale(context, ref).then((isPossible) {
+                  if (isPossible) {
+                    ref.read(selectedCustomerProvider.notifier).state =
+                        null; //Resetting customer selection field
+                  }
+                }); //Create new sale
               },
             ),
           ),
@@ -97,7 +104,7 @@ class ButtonsForAddNewSaleScreen extends ConsumerWidget {
       ObjectId().toString(),
       customerModel.id,
       totalAmount,
-      DateTime.now(),
+      selectedDate.add(Duration(days: 1)),
       saleItems: selectedSales,
     );
 
@@ -109,7 +116,7 @@ class ButtonsForAddNewSaleScreen extends ConsumerWidget {
     showCustomSnackBar(
       context: context,
       content: 'New sale added successfully',
-      bgColor: AppColors.green,
+      bgColor: AppColors.primary,
     );
 
     return true;
@@ -119,7 +126,7 @@ class ButtonsForAddNewSaleScreen extends ConsumerWidget {
 void showCustomSnackBar({
   required BuildContext context,
   required String content,
-  Color bgColor = AppColors.red,
+  Color bgColor = AppColors.error,
 }) {
   ScaffoldMessenger.of(
     context,

@@ -1,4 +1,9 @@
 class CustomRegExp {
+  static bool email(String? value) {
+    if (value == null) return false;
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value);
+  }
+
   static bool checkEmptySpaces(String value) {
     return RegExp(r'^\s*$').hasMatch(value);
   }

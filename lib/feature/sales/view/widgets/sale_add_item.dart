@@ -15,16 +15,16 @@ Widget saleAddItem({required void Function()? onTap}) {
     child: Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: AppColors.surfaceWhite,
         border: Border.all(color: const Color.fromARGB(255, 228, 228, 228)),
         borderRadius: BorderRadius.circular(12),
       ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.add_circle_rounded, color: AppColors.green),
+          Icon(Icons.add_circle_rounded, color: AppColors.primary),
           SizedBox(width: 10),
-          Text('Add Items', style: TextStyle(color: AppColors.green)),
+          Text('Add Items', style: TextStyle(color: AppColors.primary)),
         ],
       ),
     ),
@@ -64,7 +64,7 @@ class SaleAddItem extends ConsumerWidget {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.blackShade,
+                  color: AppColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 20),
@@ -200,7 +200,7 @@ class SaleAddItem extends ConsumerWidget {
                           }
                         },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.green,
+                  backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

@@ -1,14 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/core/utils/format_money.dart';
 import 'package:inventory_management_app_task/feature/inventory/view_model/inventory_provider.dart';
+import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 import 'package:inventory_management_app_task/feature/sales/view_model/sales_provider.dart';
 
 class CurrentSaleItemListForSaleScreen extends ConsumerWidget {
-  const CurrentSaleItemListForSaleScreen({super.key});
+  final bool isView;
+  final List<SaleItemModel> saleItem;
+  const CurrentSaleItemListForSaleScreen({
+    super.key,
+    required this.isView,
+    required this.saleItem,
+  });
 
   void customAlertBox({
     required BuildContext context,
@@ -40,6 +46,11 @@ class CurrentSaleItemListForSaleScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (isView) {
+        ref.read(selectedSaleItemProvider.notifier).state = saleItem;
+      }
+    });
     final saleItems = ref.watch(selectedSaleItemProvider);
     return ListView.builder(
       shrinkWrap: true,
@@ -66,7 +77,7 @@ class CurrentSaleItemListForSaleScreen extends ConsumerWidget {
                         softWrap: true,
                         overflow: TextOverflow.clip,
                         style: const TextStyle(
-                          color: AppColors.blackShade,
+                          color: AppColors.textPrimary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -74,7 +85,7 @@ class CurrentSaleItemListForSaleScreen extends ConsumerWidget {
                     Text(
                       formatMoney(number: item.price * sale.quantity),
                       style: const TextStyle(
-                        color: AppColors.blackShade,
+                        color: AppColors.textPrimary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

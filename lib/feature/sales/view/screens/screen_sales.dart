@@ -31,17 +31,23 @@ class ScreenSales extends ConsumerWidget {
                               .read(customerNotifier)
                               .getCustomerById(sale.customerId);
                           return SaleListTile(
+                            saleModel: sale,
                             customerName: customer?.name ?? 'Customer',
-                            saleAddDate: sale.date,
-                            itemPrice: sale.totalAmount.toString(),
-                            onTap: () {},
+                            // saleAddDate: sale.date,
+                            // itemPrice: sale.totalAmount.toString(),
+                            onTap: () {
+                              context.push(
+                                AppRoutes.addSale,
+                                extra: {'isView': true, 'id': sale.id},
+                              );
+                            },
                           );
                         },
                       ),
         ),
         floatingActionButton: CustomFloatingActionButton(
           onPressed: () {
-            context.push(AppRoutes.addSale);
+            context.push(AppRoutes.addSale, extra: {'isView': false});
           },
           text: 'Add new sale',
         ),

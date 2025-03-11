@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inventory_management_app_task/core/components/custom_floating_action_button.dart';
 import 'package:inventory_management_app_task/core/components/custom_search_bar.dart';
-import 'package:inventory_management_app_task/feature/inventory/view/components/item_list_tile.dart';
+import 'package:inventory_management_app_task/feature/inventory/view/components/inventory_item_list_tile.dart';
 import 'package:inventory_management_app_task/feature/inventory/view_model/inventory_provider.dart';
 import 'package:inventory_management_app_task/routes/router_name.dart';
 
@@ -35,7 +35,7 @@ class ScreenInventory extends ConsumerWidget {
                       shrinkWrap: true,
                       itemCount: itemList.length,
                       itemBuilder: (context, index) {
-                        return ItemListTile(
+                        return InventoryItemListTile(
                           index: index,
                           itemModel: itemList[index],
                         );

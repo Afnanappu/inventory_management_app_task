@@ -10,7 +10,7 @@ Future<void> showDeleteConfirmationDialog({
   context: context,
   builder:
       (context) => AlertDialog(
-        backgroundColor: AppColors.scaffoldBackgroundColor,
+        backgroundColor: AppColors.scaffoldBackground,
         title: Text(
           'Delete ${title.replaceFirst(title[0], title[0].toUpperCase())}', //This will change the first letter to uppercase
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),

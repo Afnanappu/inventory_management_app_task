@@ -14,6 +14,9 @@ class CustomTextFormField extends StatelessWidget {
     this.focusNode,
     this.suffix,
     this.maxLength,
+    this.readOnly = false,
+    this.enabled = true,
+    this.obscureText = false,
   });
 
   final String? label;
@@ -26,6 +29,9 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String? value)? validator;
   final FocusNode? focusNode;
   final int? maxLength;
+  final bool readOnly;
+  final bool enabled;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +47,14 @@ class CustomTextFormField extends StatelessWidget {
             ),
           ),
         TextFormField(
+          readOnly: readOnly,
+          enabled: enabled,
           controller: controller,
           keyboardType: keyboardType,
           maxLines: maxLines,
           focusNode: focusNode,
           maxLength: maxLength,
+          obscureText: obscureText,
           decoration: InputDecoration(
             suffixIcon: suffix,
             counterText: '',
@@ -53,7 +62,7 @@ class CustomTextFormField extends StatelessWidget {
             prefixIcon:
                 prefixIcon == null
                     ? null
-                    : Icon(prefixIcon, color: AppColors.darkGrey),
+                    : Icon(prefixIcon, color: AppColors.textSecondary),
             filled: true,
 
             fillColor: Colors.white,
@@ -71,7 +80,10 @@ class CustomTextFormField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: AppColors.green, width: 1.5),
+              borderSide: const BorderSide(
+                color: AppColors.primary,
+                width: 1.5,
+              ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -119,7 +131,7 @@ class CustomTextFormField extends StatelessWidget {
 //         controller: controller,
 //         validator: validator,
 
-//         style: const TextStyle(color: AppColors.dark),
+//         style: const TextStyle(color: AppColors.surfaceDark),
 //         enabled: isFormEnabled,
 //         cursorOpacityAnimates: true,
 //         cursorColor: Colors.black54,

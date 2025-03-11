@@ -6,7 +6,7 @@ Widget buttonAddSale({
   void Function()? onTap,
   double radius = 15,
   bool haveBorder = false,
-  Color btnColor = AppColors.green,
+  Color btnColor = AppColors.primary,
 }) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -17,13 +17,16 @@ Widget buttonAddSale({
           color: btnColor,
           borderRadius: BorderRadius.circular(radius),
           border:
-              haveBorder == true ? Border.all(color: AppColors.green) : null,
+              haveBorder == true ? Border.all(color: AppColors.primary) : null,
         ),
         child: Center(
           child: Text(
             text,
             style: TextStyle(
-              color: haveBorder == false ? AppColors.white : AppColors.green,
+              color:
+                  haveBorder == false
+                      ? AppColors.surfaceWhite
+                      : AppColors.primary,
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),

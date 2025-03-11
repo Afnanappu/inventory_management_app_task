@@ -23,10 +23,13 @@ class MyButton extends StatelessWidget {
         onPressed: function,
         style: ButtonStyle(
           backgroundColor: WidgetStateColor.resolveWith(
-            (states) => AppColors.green,
+            (states) => AppColors.primary,
           ),
         ),
-        child: Text(text, style: const TextStyle(color: AppColors.white)),
+        child: Text(
+          text,
+          style: const TextStyle(color: AppColors.surfaceWhite),
+        ),
       ),
     );
   }
@@ -63,7 +66,7 @@ class SaleBadge extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: AppColors.green,
+            color: AppColors.primary,
             fontSize: 11,
             fontWeight: FontWeight.w500,
           ),

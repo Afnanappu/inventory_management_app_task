@@ -36,7 +36,7 @@ class SalesService {
   }
 
   /// Retrieves a specific sale by ID
-  Future<SalesModel?> getSaleById(String id) async {
+  SalesModel? getSaleById(String id) {
     return _realm.find<SalesModel>(id);
   }
 

@@ -30,10 +30,7 @@ class ScreenCustomers extends ConsumerWidget {
                         itemCount: customers.length,
                         itemBuilder: (context, index) {
                           final customer = customers[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: CustomerTile(customer: customer),
-                          );
+                          return CustomerTile(customer: customer);
                         },
                       ),
                     ),

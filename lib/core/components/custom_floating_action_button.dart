@@ -7,12 +7,13 @@ class CustomFloatingActionButton extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color color;
+
   const CustomFloatingActionButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.icon = Icons.add,
-    this.color = AppColors.darkGrey,
+    this.color = AppColors.primary, // Default to primary green
   });
 
   @override
@@ -31,12 +32,32 @@ class CustomFloatingActionButton extends StatelessWidget {
                 heroTag: null,
                 onPressed: onPressed,
                 backgroundColor: color,
+                elevation: 2, // Added subtle elevation for depth
+                hoverColor: AppColors.primaryDark.withValues(
+                  alpha: 0.2,
+                ), // Hover effect
+                splashColor: AppColors.primaryLight.withValues(
+                  alpha: 0.3,
+                ), // Tap feedback
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(icon, color: AppColors.white),
+                    Icon(
+                      icon,
+                      color:
+                          AppColors
+                              .textOnPrimary, // White for contrast on primary
+                    ),
                     const SizedBox(width: 5),
-                    Text(text, style: const TextStyle(color: AppColors.white)),
+                    Text(
+                      text,
+                      style: TextStyle(
+                        color: AppColors.textOnPrimary, // White for contrast
+                        fontSize: 16,
+                        fontWeight:
+                            FontWeight.w500, // Slightly bold for readability
+                      ),
+                    ),
                   ],
                 ),
               ),

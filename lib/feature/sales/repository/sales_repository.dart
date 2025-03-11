@@ -17,8 +17,8 @@ class SalesRepository {
   }
 
   /// Get a sale by ID
-  Future<SalesModel?> getSaleById(String id) async {
-    return await _salesService.getSaleById(id);
+  SalesModel? getSaleById(String id)  {
+    return  _salesService.getSaleById(id);
   }
 
   /// Update a sale record

@@ -31,7 +31,7 @@ class AppBarForMain extends StatelessWidget implements PreferredSizeWidget {
       //       decoration: BoxDecoration(
       //         border:
       //             (haveBorder == true)
-      //                 ? Border.all(color: AppColors.darkGrey)
+      //                 ? Border.all(color: AppColors.textSecondary)
       //                 : null,
       //         borderRadius: BorderRadius.circular(20),
       //       ),

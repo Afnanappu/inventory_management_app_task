@@ -24,7 +24,7 @@ class TotalAmountSectionForSaleAddItemScreen extends ConsumerWidget {
         const Text(
           'Total Amount',
           style: TextStyle(
-            color: AppColors.blackShade,
+            color: AppColors.textPrimary,
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),
@@ -36,7 +36,7 @@ class TotalAmountSectionForSaleAddItemScreen extends ConsumerWidget {
           decoration: const BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: AppColors.blackShade,
+                color: AppColors.textPrimary,
                 style: BorderStyle.solid,
               ),
             ),
@@ -45,7 +45,7 @@ class TotalAmountSectionForSaleAddItemScreen extends ConsumerWidget {
             leading: const Text(
               '₹',
               style: TextStyle(
-                color: AppColors.blackShade,
+                color: AppColors.textPrimary,
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
@@ -64,7 +64,7 @@ class TotalAmountSectionForSaleAddItemScreen extends ConsumerWidget {
                     ),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: AppColors.blackShade,
+                      color: AppColors.textPrimary,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),

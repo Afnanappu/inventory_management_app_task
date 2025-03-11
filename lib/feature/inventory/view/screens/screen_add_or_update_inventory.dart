@@ -161,7 +161,7 @@ class ScreenAddOrUpdateInventory extends ConsumerWidget {
                     child: ElevatedButton(
                       onPressed: () => _saveItem(context, ref),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.green,
+                        backgroundColor: AppColors.primary,
                         foregroundColor: Colors.white,
                         elevation: 0,
 

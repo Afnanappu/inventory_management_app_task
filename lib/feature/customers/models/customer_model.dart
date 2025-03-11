@@ -6,5 +6,6 @@ class _CustomerModel {
   @PrimaryKey()
   late final String id;
   late final String name;
+  late final String address;
   late final String phone;
 }

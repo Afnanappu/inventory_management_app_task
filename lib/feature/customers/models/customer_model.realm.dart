@@ -12,10 +12,12 @@ class CustomerModel extends _CustomerModel
   CustomerModel(
     String id,
     String name,
+    String address,
     String phone,
   ) {
     RealmObjectBase.set(this, 'id', id);
     RealmObjectBase.set(this, 'name', name);
+    RealmObjectBase.set(this, 'address', address);
     RealmObjectBase.set(this, 'phone', phone);
   }
 
@@ -30,6 +32,11 @@ class CustomerModel extends _CustomerModel
   String get name => RealmObjectBase.get<String>(this, 'name') as String;
   @override
   set name(String value) => throw RealmUnsupportedSetError();
+
+  @override
+  String get address => RealmObjectBase.get<String>(this, 'address') as String;
+  @override
+  set address(String value) => throw RealmUnsupportedSetError();
 
   @override
   String get phone => RealmObjectBase.get<String>(this, 'phone') as String;
@@ -52,6 +59,7 @@ class CustomerModel extends _CustomerModel
     return <String, dynamic>{
       'id': id.toEJson(),
       'name': name.toEJson(),
+      'address': address.toEJson(),
       'phone': phone.toEJson(),
     };
   }
@@ -63,11 +71,13 @@ class CustomerModel extends _CustomerModel
       {
         'id': EJsonValue id,
         'name': EJsonValue name,
+        'address': EJsonValue address,
         'phone': EJsonValue phone,
       } =>
         CustomerModel(
           fromEJson(id),
           fromEJson(name),
+          fromEJson(address),
           fromEJson(phone),
         ),
       _ => raiseInvalidEJson(ejson),
@@ -81,6 +91,7 @@ class CustomerModel extends _CustomerModel
         ObjectType.realmObject, CustomerModel, 'CustomerModel', [
       SchemaProperty('id', RealmPropertyType.string, primaryKey: true),
       SchemaProperty('name', RealmPropertyType.string),
+      SchemaProperty('address', RealmPropertyType.string),
       SchemaProperty('phone', RealmPropertyType.string),
     ]);
   }();
