@@ -34,7 +34,7 @@ class SaleListTile extends StatelessWidget {
             // Sale Icon/Avatar
             CircleAvatar(
               radius: 28,
-              backgroundColor: AppColors.primaryLight.withOpacity(0.2),
+              backgroundColor: AppColors.primaryLight.withValues(alpha: 0.2),
               child: Icon(
                 Icons.receipt_long_outlined,
                 size: 24,
@@ -67,7 +67,7 @@ class SaleListTile extends StatelessWidget {
                         ),
                       ),
                       SaleBadge(
-                        color: AppColors.success.withOpacity(0.2),
+                        color: AppColors.success.withValues(alpha: 0.2),
                         text: 'SALE',
                         textColor: AppColors.success,
                         onTap: () {},

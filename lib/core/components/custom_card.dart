@@ -4,12 +4,14 @@ import 'package:inventory_management_app_task/core/constants/colors.dart';
 class CustomCard extends StatelessWidget {
   final Widget child;
   final EdgeInsets padding;
+  final EdgeInsets? margin;
   final VoidCallback? onTap;
   const CustomCard({
     super.key,
     required this.child,
     this.onTap,
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    this.margin,
   });
 
   @override
@@ -18,6 +20,7 @@ class CustomCard extends StatelessWidget {
       padding: padding,
       child: Card(
         elevation: .3, // Subtle shadow for depth
+        margin: margin,
         shadowColor: AppColors.surfaceGrey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),

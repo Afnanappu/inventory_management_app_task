@@ -51,7 +51,6 @@ import 'package:flutter/material.dart';
 //       textSecondary.withValues(alpha: 0.5); // Disabled states
 // }
 
-
 class AppColors {
   // Primary Colors (Green-based)
   static const Color primaryLight = Color(0xFF70E985);
