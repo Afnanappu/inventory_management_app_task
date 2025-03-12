@@ -105,3 +105,13 @@ final _inventoryRepositoryProvider = Provider((_) {
   final service = getIt.get<InventoryServices>();
   return InventoryRepository(service);
 });
+
+//=========================
+
+final lowStockItemProvider = Provider<int>((ref) {
+  final inventoryState = ref.watch(inventoryProvider);
+  final count =
+      inventoryState.asData?.value.where((item) => item.quantity <= 0).length;
+  log('low stock count: $count');
+  return count ?? 0;
+});

@@ -56,9 +56,9 @@ class CustomerProvider extends StateNotifier<AsyncValue<List<CustomerModel>>> {
   }
 
   ///
- CustomerModel? getCustomerById(String id)  {
+  CustomerModel? getCustomerById(String id) {
     try {
-      return  _repository.getCustomerById(id);
+      return _repository.getCustomerById(id);
     } catch (e, stackTrace) {
       log('Error deleting customer: $e', stackTrace: stackTrace);
       return null;
@@ -75,3 +75,7 @@ final _customerRepositoryProvider = Provider<CustomerRepository>((ref) {
   final service = getIt.get<CustomerServices>();
   return CustomerRepository(service);
 });
+
+
+//====================
+

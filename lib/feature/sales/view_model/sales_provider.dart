@@ -15,8 +15,12 @@ class SalesProvider extends StateNotifier<AsyncValue<List<SalesModel>>> {
     fetchAllSales();
   }
 
-  ///Get loaded state
+  /// Get loaded sales data
   List<SalesModel> get sales => state.asData?.value ?? [];
+
+  /// Compute total sales sum dynamically
+  double get totalSales =>
+      sales.fold(0.0, (sum, sale) => sum + sale.totalAmount);
 
   /// Fetch all sales records from the repository
   Future<void> fetchAllSales() async {
@@ -81,4 +85,14 @@ final _salesRepositoryProvider = Provider((ref) {
 
 final selectedSaleItemProvider = StateProvider<List<SaleItemModel>>((ref) {
   return [];
+});
+
+///This provider will provide the total sale
+final totalSalesProvider = Provider<double>((ref) {
+  final saleState = ref.watch(salesProvider);
+  return saleState.asData?.value.fold(
+        0.0,
+        (sum, sale) => sum! + sale.totalAmount,
+      ) ??
+      0;
 });

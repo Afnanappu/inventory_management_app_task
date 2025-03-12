@@ -26,6 +26,11 @@ class SalesRepository {
     await _salesService.updateSale(sale);
   }
 
+  /// Get total sales amount
+  double fetchTotalSales() {
+    return _salesService.getTotalSales();
+  }
+
   /// Delete a sale record
   Future<void> deleteSale(String id) async {
     await _salesService.deleteSale(id);

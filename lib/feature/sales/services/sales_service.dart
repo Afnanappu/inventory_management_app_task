@@ -57,6 +57,14 @@ class SalesService {
     }
   }
 
+  /// Compute total sales
+  double getTotalSales() {
+    return _realm.all<SalesModel>().fold(
+      0.0,
+      (sum, sale) => sum + sale.totalAmount,
+    );
+  }
+
   /// Closes the Realm instance
   void close() {
     _realm.close();
