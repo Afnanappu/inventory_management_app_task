@@ -1,22 +1,18 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_management_app_task/app_dependencies.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/core/constants/screen_size.dart';
-import 'package:inventory_management_app_task/core/services/user_services.dart';
 import 'package:inventory_management_app_task/routes/router.dart';
 
 void main() async {
- WidgetsFlutterBinding.ensureInitialized();
-
+  WidgetsFlutterBinding.ensureInitialized();
 
   AppDependencies.setup();
 
-  final container = ProviderContainer();
-  container.read(loginStatusProvider.notifier).state =
-      await getIt.get<UserServices>().checkLoginStatus();
+  // final container = ProviderContainer();
+  // container.read(loginStatusProvider.notifier).state =
+  //     await getIt.get<UserServices>().checkLoginStatus();
 
   runApp(ProviderScope(child: MyApp()));
 }

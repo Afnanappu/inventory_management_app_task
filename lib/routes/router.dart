@@ -20,29 +20,29 @@ final loginStatusProvider = StateProvider<bool>((ref) => false);
 class AppRouter {
   static GoRouter router = GoRouter(
     initialLocation:
-        AppRoutes.login, // Default starting point (will redirect if needed)
-    // redirect: (context, state) async {
-    //   // Check login status dynamically
-    //   final isLoggedIn = true;
-    //   // ProviderScope.containerOf(
-    //   //   context,
-    //   // ).read(loginStatusProvider);
+        AppRoutes.home, // Default starting point (will redirect if needed)
+    redirect: (context, state) async {
+      // Check login status dynamically
+      final isLoggedIn = await getIt.get<UserServices>().checkLoginStatus();
+      // ProviderScope.containerOf(
+      //   context,
+      // ).read(loginStatusProvider);
 
-    //   final String currentPath = state.matchedLocation;
+      final String currentPath = state.matchedLocation;
 
-    //   log('Redirect check: isLoggedIn=$isLoggedIn, currentPath=$currentPath');
+      log('Redirect check: isLoggedIn=$isLoggedIn, currentPath=$currentPath');
 
-    //   // If not logged in and trying to access a protected route, redirect to login
-    //   if (!isLoggedIn && currentPath != AppRoutes.login) {
-    //     return AppRoutes.login;
-    //   }
-    //   // If logged in and trying to access login, redirect to home
-    //   if (isLoggedIn && currentPath == AppRoutes.login) {
-    //     return AppRoutes.home;
-    //   }
-    //   // No redirect needed; proceed to the requested route
-    //   return null;
-    // },
+      // If not logged in and trying to access a protected route, redirect to login
+      if (!isLoggedIn && currentPath != AppRoutes.login) {
+        return AppRoutes.login;
+      }
+      // If logged in and trying to access login, redirect to home
+      if (isLoggedIn && currentPath == AppRoutes.login) {
+        return AppRoutes.home;
+      }
+      // No redirect needed; proceed to the requested route
+      return null;
+    },
     routes: [
       //Bottom Nav
       StatefulShellRoute.indexedStack(

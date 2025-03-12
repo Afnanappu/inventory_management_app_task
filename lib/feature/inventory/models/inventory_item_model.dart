@@ -7,7 +7,6 @@ part 'inventory_item_model.realm.dart';
 class _InventoryItemModel {
   @PrimaryKey()
   late final String id;
-
   late final String name;
   late final String description;
   late final int quantity;
