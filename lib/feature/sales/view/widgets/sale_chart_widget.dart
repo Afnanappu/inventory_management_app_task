@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/feature/sales/models/sales_metrics.dart';
-import 'package:inventory_management_app_task/feature/sales/view/screens/screen_sales_report.dart';
 
 class SaleChartWidget extends StatelessWidget {
   const SaleChartWidget({
