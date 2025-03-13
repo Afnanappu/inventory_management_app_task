@@ -110,7 +110,7 @@ class SaleListTile extends StatelessWidget {
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        '\$${saleModel.totalAmount.toStringAsFixed(2)}',
+                        '₹${saleModel.totalAmount.toStringAsFixed(2)}',
                         style: AppFontStyle.saleTile,
                       ),
                     ],

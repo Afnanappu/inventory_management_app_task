@@ -16,7 +16,7 @@ class NavHomeWidget extends StatelessWidget {
           title: 'Sales Report',
           icon: Icons.bar_chart,
           color: AppColors.surfaceGrey,
-          route: AppRoutes.sales,
+          route: AppRoutes.salesReport,
         ),
         HomeNavCard(
           context: context,

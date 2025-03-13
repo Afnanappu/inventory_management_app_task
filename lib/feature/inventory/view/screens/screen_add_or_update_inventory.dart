@@ -97,7 +97,7 @@ class ScreenAddOrUpdateInventory extends ConsumerWidget {
                         child: CustomTextFormField(
                           label: 'Price',
                           controller: _priceController,
-                          prefixIcon: Icons.attach_money,
+                          prefixIcon: Icons.currency_rupee,
                           hintText: '0.00',
                           keyboardType: const TextInputType.numberWithOptions(
                             decimal: true,

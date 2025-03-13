@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:inventory_management_app_task/feature/inventory/services/inventory_services.dart';
 import 'package:realm/realm.dart';
 import '../models/sales_model.dart';
@@ -63,6 +64,25 @@ class SalesService {
       0.0,
       (sum, sale) => sum + sale.totalAmount,
     );
+  }
+
+  ///Get sales data based on the [dateRange]
+  List<SalesModel> getFilteredSalesByDateRange(DateTimeRange dateRange) {
+    final salesQuery = _realm
+        .all<SalesModel>()
+        .query('date >= \$0 AND date <= \$1', [
+          dateRange.start,
+          DateTime(
+            dateRange.end.year,
+            dateRange.end.month,
+            dateRange.end.day + 1, //Added one to also get current day sales
+            23,
+            59,
+            59,
+          ),
+        ]);
+
+    return salesQuery.toList();
   }
 
   /// Closes the Realm instance

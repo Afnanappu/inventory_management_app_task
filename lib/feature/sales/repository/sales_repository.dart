@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 import 'package:inventory_management_app_task/feature/sales/services/sales_service.dart';
 
@@ -17,8 +18,8 @@ class SalesRepository {
   }
 
   /// Get a sale by ID
-  SalesModel? getSaleById(String id)  {
-    return  _salesService.getSaleById(id);
+  SalesModel? getSaleById(String id) {
+    return _salesService.getSaleById(id);
   }
 
   /// Update a sale record
@@ -34,5 +35,12 @@ class SalesRepository {
   /// Delete a sale record
   Future<void> deleteSale(String id) async {
     await _salesService.deleteSale(id);
+  }
+
+  ///Get sales data based on the [dateRange]
+  Future<List<SalesModel>> fetchFilteredSalesByDateRange(
+    DateTimeRange dateRange,
+  ) async {
+    return _salesService.getFilteredSalesByDateRange(dateRange);
   }
 }

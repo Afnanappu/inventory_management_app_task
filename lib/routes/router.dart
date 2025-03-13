@@ -13,6 +13,7 @@ import 'package:inventory_management_app_task/feature/inventory/view/screens/scr
 import 'package:inventory_management_app_task/feature/inventory/view/screens/screen_inventory.dart';
 import 'package:inventory_management_app_task/feature/sales/view/screens/screen_sale_add.dart';
 import 'package:inventory_management_app_task/feature/sales/view/screens/screen_sales.dart';
+import 'package:inventory_management_app_task/feature/sales/view/screens/screen_sales_report.dart';
 import 'package:inventory_management_app_task/routes/router_name.dart';
 
 final loginStatusProvider = StateProvider<bool>((ref) => false);
@@ -115,10 +116,10 @@ class AppRouter {
         path: AppRoutes.login,
         builder: (context, state) => LoginScreen(),
       ),
-      // GoRoute(
-      //   path: '/sales_report',
-      //   builder: (context, state) => const SalesReportScreen(),
-      // ),
+      GoRoute(
+        path: AppRoutes.salesReport,
+        builder: (context, state) => const ScreenSalesReport(),
+      ),
       // GoRoute(
       //   path: '/items_report',
       //   builder: (context, state) => const ItemsReportScreen(),

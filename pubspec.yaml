@@ -8,6 +8,7 @@ environment:
 
 dependencies:
 
+  fl_chart: ^0.70.2
   flutter:
     sdk: flutter
   flutter_custom_clippers: ^2.1.0
@@ -16,6 +17,7 @@ dependencies:
   go_router: ^14.8.1
   image_picker: ^1.1.2
   intl: ^0.20.2
+  pdf: ^3.11.3
   realm: ^20.0.1
   shared_preferences: ^2.5.2
 

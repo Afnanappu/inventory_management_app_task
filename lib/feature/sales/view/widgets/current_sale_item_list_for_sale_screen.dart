@@ -106,47 +106,49 @@ class CurrentSaleItemListForSaleScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              // if (!isViewer && onRemoveItem != null)
-              FractionalTranslation(
-                translation: const Offset(0.06, -0.45),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder:
-                            (context) => AlertDialog(
-                              title: const Text('Remove selected item'),
-                              content: const Text('Are you sure?'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => context.pop(),
-                                  child: const Text('No'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    ref
-                                        .read(selectedSaleItemProvider.notifier)
-                                        .state = ref
-                                            .read(selectedSaleItemProvider)
-                                            .where(
-                                              (element) =>
-                                                  element.id != sale.id,
-                                            )
-                                            .toList();
-                                    context.pop();
-                                  },
-                                  child: const Text('Yes'),
-                                ),
-                              ],
-                            ),
-                      );
-                    },
-                    icon: const Icon(Icons.close),
+              if (!isView)
+                FractionalTranslation(
+                  translation: const Offset(0.06, -0.45),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder:
+                              (context) => AlertDialog(
+                                title: const Text('Remove selected item'),
+                                content: const Text('Are you sure?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => context.pop(),
+                                    child: const Text('No'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(
+                                            selectedSaleItemProvider.notifier,
+                                          )
+                                          .state = ref
+                                              .read(selectedSaleItemProvider)
+                                              .where(
+                                                (element) =>
+                                                    element.id != sale.id,
+                                              )
+                                              .toList();
+                                      context.pop();
+                                    },
+                                    child: const Text('Yes'),
+                                  ),
+                                ],
+                              ),
+                        );
+                      },
+                      icon: const Icon(Icons.close),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         );

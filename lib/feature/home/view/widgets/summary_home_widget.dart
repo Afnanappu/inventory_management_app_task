@@ -22,9 +22,9 @@ class SummaryHomeWidget extends ConsumerWidget {
         children: [
           SummaryCard(
             title: 'Total Sales',
-            value: '\$${totalSale.toStringAsFixed(2)}',
-            icon: Icons.attach_money_outlined,
-            color: AppColors.success,
+            value: '₹${totalSale.toStringAsFixed(2)}',
+            icon: Icons.currency_rupee_outlined,
+            color: AppColors.primary,
           ),
           SummaryCard(
             title: 'Low Stock Items',

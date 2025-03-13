@@ -18,24 +18,24 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
-      child: Card(
-        elevation: .3, // Subtle shadow for depth
-        margin: margin,
-        shadowColor: AppColors.surfaceGrey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(
-            color: AppColors.surfaceGrey.withValues(alpha: 0.5),
-            width: 0.5,
-          ), // Subtle border
-        ),
-        color: AppColors.surfaceWhite, // White background for contrast
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(12),
-          splashColor: AppColors.primary.withValues(
-            alpha: 0.1,
-          ), // Green splash effect
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        splashColor: AppColors.primary.withValues(
+          alpha: 0.1,
+        ), // Green splash effect
+        child: Card(
+          elevation: .3, // Subtle shadow for depth
+          margin: margin,
+          shadowColor: AppColors.surfaceGrey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+              color: AppColors.surfaceGrey.withValues(alpha: 0.5),
+              width: 0.5,
+            ), // Subtle border
+          ),
+          color: AppColors.surfaceWhite, // White background for contrast
           child: child,
         ),
       ),
