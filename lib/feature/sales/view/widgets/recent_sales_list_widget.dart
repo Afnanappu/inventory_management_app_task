@@ -17,6 +17,7 @@ class RecentSalesListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: sales.length,
       itemBuilder: (context, index) {

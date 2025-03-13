@@ -1,16 +1,17 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:inventory_management_app_task/core/components/custom_pop_up_menu.dart';
 import 'package:inventory_management_app_task/core/components/show_delete_confirmation_dialog.dart';
 
-class CustomPopupMenuButton extends StatelessWidget {
+class PopupMenuButtonWithEditAndDelete extends StatelessWidget {
   final void Function() onEditPressed;
   final void Function() onDeletePressed;
   final Color? iconColor;
   final Color? menuBackgroundColor;
   final String title;
 
-  const CustomPopupMenuButton({
+  const PopupMenuButtonWithEditAndDelete({
     super.key,
     required this.onEditPressed,
     required this.onDeletePressed,
@@ -21,15 +22,12 @@ class CustomPopupMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      color: menuBackgroundColor ?? Colors.white,
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      icon: Icon(Icons.more_vert, color: iconColor ?? Colors.black54),
-      offset: const Offset(0, 40),
+    return CustomPopUpMenu(
+      menuBackgroundColor: menuBackgroundColor,
+      iconColor: iconColor,
       itemBuilder:
           (context) => [
-            _buildPopupMenuItem(
+            customPopupMenuItemBuild(
               title: 'Edit',
               icon: Icons.edit_outlined,
               onTap: () {
@@ -39,7 +37,7 @@ class CustomPopupMenuButton extends StatelessWidget {
               iconColor: Colors.blue,
             ),
             PopupMenuDivider(height: 0.5),
-            _buildPopupMenuItem(
+            customPopupMenuItemBuild(
               title: 'Delete',
               icon: Icons.delete_outline,
               onTap: () {
@@ -55,32 +53,6 @@ class CustomPopupMenuButton extends StatelessWidget {
               iconColor: Colors.red,
             ),
           ],
-    );
-  }
-
-  PopupMenuEntry _buildPopupMenuItem({
-    required String title,
-    required IconData icon,
-    required Function() onTap,
-    required Color iconColor,
-  }) {
-    return PopupMenuItem(
-      onTap: onTap,
-      height: 48,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: iconColor),
-          const SizedBox(width: 12),
-          Text(
-            title,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

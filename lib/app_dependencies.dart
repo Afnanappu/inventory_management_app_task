@@ -1,4 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:inventory_management_app_task/core/services/excel_services.dart';
+import 'package:inventory_management_app_task/core/services/pdf_services.dart';
+import 'package:inventory_management_app_task/core/services/share_services.dart';
 import 'package:inventory_management_app_task/core/services/user_services.dart';
 import 'package:inventory_management_app_task/feature/customers/services/customer_services.dart';
 import 'package:inventory_management_app_task/feature/inventory/services/inventory_services.dart';
@@ -15,5 +18,8 @@ class AppDependencies {
     getIt.registerSingleton<SalesService>(
       SalesService(getIt.get<InventoryServices>()),
     ); //
+    getIt.registerSingleton<PdfService>(PdfService()); //
+    getIt.registerSingleton<ExcelServices>(ExcelServices()); //
+    getIt.registerSingleton<ShareServices>(ShareServices()); //
   }
 }

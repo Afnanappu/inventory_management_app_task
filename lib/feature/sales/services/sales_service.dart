@@ -90,3 +90,23 @@ class SalesService {
     _realm.close();
   }
 }
+
+abstract class VehicleService {
+  void driveCar();
+  void changeEngine();
+}
+
+class Car implements VehicleService {
+  @override
+  void changeEngine() {}
+  
+  @override
+  void driveCar() {}
+}
+
+class Bike implements VehicleService {
+  @override
+  void changeEngine() {}
+  @override
+  void driveCar() {}
+}

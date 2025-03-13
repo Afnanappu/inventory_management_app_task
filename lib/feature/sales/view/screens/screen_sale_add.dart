@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:inventory_management_app_task/core/components/custom_text_form_field.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/core/utils/format_date.dart';
@@ -168,7 +171,15 @@ class ScreenSaleAdd extends ConsumerWidget {
       },
     );
     if (picked != null && picked != selectedDate) {
-      // picked =picked.add(Duration(days: 1));
+      picked = DateTime(
+        picked.year,
+        picked.month,
+        picked.day,
+        DateTime.now().hour,
+        DateTime.now().minute,
+      );
+      log(DateFormat('yyyy-MM-dd HH:mm').format(picked));
+
       ref.read(selectedDateProvider.notifier).state = picked;
       dateController.text = formatDateTime2(date: picked);
     }

@@ -5,10 +5,7 @@ import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/feature/sales/models/sales_metrics.dart';
 
 class SaleChartWidget extends StatelessWidget {
-  const SaleChartWidget({
-    super.key,
-    required this.metrics,
-  });
+  const SaleChartWidget({super.key, required this.metrics});
 
   final SalesMetrics metrics;
 
@@ -22,7 +19,7 @@ class SaleChartWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -48,7 +45,7 @@ class SaleChartWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

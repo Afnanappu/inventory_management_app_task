@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_management_app_task/core/components/custom_card.dart';
-import 'package:inventory_management_app_task/core/components/custom_pop_up_menu_button.dart';
+import 'package:inventory_management_app_task/core/components/custom_pop_up_menu.dart';
+import 'package:inventory_management_app_task/core/components/popup_menu_button_with_edit_and_delete.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/core/constants/font_styles.dart';
 import 'package:inventory_management_app_task/core/utils/format_date.dart';
@@ -121,7 +122,7 @@ class SaleListTile extends StatelessWidget {
 
             // Actions (Optional)
             if (onEdit != null || onDelete != null)
-              CustomPopupMenuButton(
+              PopupMenuButtonWithEditAndDelete(
                 onEditPressed: onEdit!,
                 onDeletePressed: onDelete!,
                 title: 'sale',

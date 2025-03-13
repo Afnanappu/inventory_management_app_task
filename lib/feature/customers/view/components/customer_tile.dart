@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_management_app_task/core/components/custom_card.dart';
-import 'package:inventory_management_app_task/core/components/custom_pop_up_menu_button.dart';
+import 'package:inventory_management_app_task/core/components/custom_pop_up_menu.dart';
+import 'package:inventory_management_app_task/core/components/popup_menu_button_with_edit_and_delete.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/feature/customers/models/customer_model.dart';
 import 'package:inventory_management_app_task/feature/customers/view/components/show_add_customer_dialog.dart';
@@ -117,7 +118,7 @@ class CustomerTile extends ConsumerWidget {
             ),
 
             // Actions
-            CustomPopupMenuButton(
+            PopupMenuButtonWithEditAndDelete(
               onEditPressed: () {
                 showAddCustomerDialog(context, ref, customer);
               },
