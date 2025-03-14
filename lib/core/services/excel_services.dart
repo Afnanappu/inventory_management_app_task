@@ -93,7 +93,7 @@ class ExcelServices {
         downloadsDir = await getExternalStorageDirectory(); // Fallback
       }
 
-      final filePath = '${downloadsDir!.path}/sales_report.pdf';
+      final filePath = '${downloadsDir!.path}/$fileName';
       final file = File(filePath);
       file.writeAsBytesSync(workbook.saveAsStream());
       print('Excel saved to $filePath');
