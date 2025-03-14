@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:inventory_management_app_task/core/components/metric_card.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/core/utils/format_money.dart';
@@ -43,17 +44,27 @@ class CustomerReportSaleListWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              // MetricCard(
+              //   title: 'Total Sales',
+              //   value: formatMoney(number: totalSales),
+              //   icon: Icons.attach_money,
+              //   color: AppColors.primaryDark,
+              //   margin: EdgeInsets.symmetric(horizontal: 8),
+              // ),
               MetricCard(
-                title: 'Total Sales',
-                value: formatMoney(number: totalSales),
+                title: 'Average Sale',
+                value: formatMoney(number: averageSale),
                 icon: Icons.attach_money,
                 color: AppColors.primaryDark,
                 margin: EdgeInsets.symmetric(horizontal: 8),
               ),
               MetricCard(
-                title: 'Average Sale',
-                value: formatMoney(number: averageSale),
-                icon: Icons.attach_money,
+                title: 'Last Sale',
+                value:
+                    sales.isEmpty
+                        ? 'N/A'
+                        : DateFormat('MMM dd').format(sales.first.date),
+                icon: Icons.calendar_today,
                 color: AppColors.primaryDark,
                 margin: EdgeInsets.symmetric(horizontal: 8),
               ),

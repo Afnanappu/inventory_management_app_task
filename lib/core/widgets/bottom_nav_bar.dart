@@ -25,6 +25,7 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: selectedIndex,
+      backgroundColor: AppColors.scaffoldBackground,
       onTap: (index) => _onItemTapped(context, index),
       selectedItemColor: AppColors.primary,
       selectedIconTheme: const IconThemeData(color: AppColors.primary),

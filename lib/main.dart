@@ -32,7 +32,20 @@ class MyApp extends StatelessWidget {
     //       );
     //     }
     return MaterialApp.router(
-      theme: ThemeData(scaffoldBackgroundColor: AppColors.scaffoldBackground),
+      theme: ThemeData(
+        scaffoldBackgroundColor: AppColors.scaffoldBackground,
+        appBarTheme: AppBarTheme(
+          backgroundColor: AppColors.scaffoldBackground,
+          surfaceTintColor: AppColors.scaffoldBackground,
+          titleTextStyle: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: AppColors.textPrimary,
+          ),
+          // elevation: 1,
+          shadowColor: AppColors.scaffoldBackground,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       routerConfig: AppRouter.router,
     );

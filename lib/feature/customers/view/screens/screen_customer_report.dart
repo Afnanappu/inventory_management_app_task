@@ -54,23 +54,7 @@ class _ScreenCustomerReportState extends ConsumerState<ScreenCustomerReport> {
     log('Page built for customer: ${widget.customer.name}');
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${widget.customer.name} - Ledger'),
-        elevation: 0,
-        actions: [
-          
-          // IconButton(
-          //   icon: const Icon(Icons.refresh),
-          //   onPressed:
-          //       _isLoading
-          //           ? null
-          //           : () {
-          //             setState(() => _isLoading = true);
-          //             _loadSales();
-          //           },
-          // ),
-        ],
-      ),
+      appBar: AppBar(title: Text('${widget.customer.name} - Ledger')),
       body:
           _isLoading
               ? const Center(child: CircularProgressIndicator())

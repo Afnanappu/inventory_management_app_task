@@ -19,27 +19,29 @@ class SummaryHomeWidget extends ConsumerWidget {
     final customer = ref.watch(customerProvider);
 
     return Expanded(
-      child: ListView(
-        children: [
-          SummaryCard(
-            title: 'Total Sales',
-            value: formatMoney(number: totalSale),
-            icon: Icons.currency_rupee_outlined,
-            color: AppColors.primary,
-          ),
-          SummaryCard(
-            title: 'Low Stock Items',
-            value: '$lowStockCount Items',
-            icon: Icons.warning_amber_outlined,
-            color: AppColors.error,
-          ),
-          SummaryCard(
-            title: 'Customers',
-            value: 'Total: ${customer.asData?.value.length ?? 0}',
-            icon: Icons.people,
-            color: AppColors.accent,
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SummaryCard(
+              title: 'Total Sales',
+              value: formatMoney(number: totalSale),
+              icon: Icons.currency_rupee_outlined,
+              color: AppColors.primary,
+            ),
+            SummaryCard(
+              title: 'Low Stock Items',
+              value: '$lowStockCount Items',
+              icon: Icons.warning_amber_outlined,
+              color: AppColors.error,
+            ),
+            SummaryCard(
+              title: 'Customers',
+              value: 'Total: ${customer.asData?.value.length ?? 0}',
+              icon: Icons.people,
+              color: AppColors.accent,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -13,11 +13,11 @@ class CustomerReportSalesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('MMM dd, yyyy');
-    final currencyFormat = NumberFormat.currency(symbol: '\$');
 
     return CustomCard(
       padding: EdgeInsets.zero,
       child: ExpansionTile(
+        shape: Border(),
         tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         childrenPadding: const EdgeInsets.only(bottom: 16),
         title: Row(
@@ -131,14 +131,14 @@ class CustomerReportSalesCard extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        currencyFormat.format(item.price),
+                        formatMoney(number: item.price),
                         textAlign: TextAlign.right,
                       ),
                     ),
                     Expanded(
                       flex: 2,
                       child: Text(
-                        currencyFormat.format(item.price * item.quantity),
+                        formatMoney(number: item.price * item.quantity),
                         textAlign: TextAlign.right,
                       ),
                     ),
@@ -162,7 +162,7 @@ class CustomerReportSalesCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  currencyFormat.format(sale.totalAmount),
+                  formatMoney(number: sale.totalAmount),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.primaryDark,

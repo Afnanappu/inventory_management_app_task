@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
+import 'package:inventory_management_app_task/core/utils/format_money.dart';
 import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 
 class CustomerReportFinancialSummaryWidget extends StatelessWidget {
@@ -15,8 +15,6 @@ class CustomerReportFinancialSummaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currencyFormat = NumberFormat.currency(symbol: '\$');
-
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -54,7 +52,7 @@ class CustomerReportFinancialSummaryWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                currencyFormat.format(totalSales),
+                formatMoney(number: totalSales),
                 style: const TextStyle(
                   fontSize: 28,
                   color: Colors.white,
