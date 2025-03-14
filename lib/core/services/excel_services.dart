@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_management_app_task/core/utils/format_date.dart';
 import 'package:inventory_management_app_task/feature/customers/view_model/customer_provider.dart';
+import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
 import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
@@ -60,15 +61,18 @@ class ExcelServices {
     // workbook.dispose();
     // print('Excel saved to $filePath');
 
-    return await _saveExcelWithFilePicker(workbook);
+    return await _saveExcelWithFilePicker(workbook, 'sales_report.xlsx');
   }
 
-  Future<File?> _saveExcelWithFilePicker(Workbook workbook) async {
+  Future<File?> _saveExcelWithFilePicker(
+    Workbook workbook,
+    String fileName,
+  ) async {
     String? outputFile = await FilePicker.platform.saveFile(
       dialogTitle: 'Save Excel Report',
-      fileName: 'sales_report.xlsx',
+      fileName: fileName,
       type: FileType.custom,
-      allowedExtensions: ['xlsx'],
+      // allowedExtensions: ['xlsx'],
     );
 
     if (outputFile != null) {
@@ -83,5 +87,49 @@ class ExcelServices {
     workbook.dispose();
 
     return null;
+  }
+
+  //====================
+
+  Future<File?> generateInventoryExcelReport(
+    List<InventoryItemModel> inventory,
+  ) async {
+    final Workbook workbook = Workbook();
+    final Worksheet sheet = workbook.worksheets[0];
+    sheet.name = 'Inventory Report';
+
+    // Style for headers
+    final Style style = workbook.styles.add('HeaderStyle');
+    style.fontSize = 14;
+    style.bold = true;
+
+    // Set column headers with styling
+    sheet.getRangeByName('A1').setText('ID');
+    sheet.getRangeByName('B1').setText('Name');
+    sheet.getRangeByName('C1').setText('Description');
+    sheet.getRangeByName('D1').setText('Quantity');
+    sheet.getRangeByName('E1').setText('Price');
+
+    for (var col in ['A1', 'B1', 'C1', 'D1', 'E1']) {
+      sheet.getRangeByName(col).cellStyle = style;
+    }
+
+    // Add inventory data
+    for (int i = 0; i < inventory.length; i++) {
+      sheet.getRangeByIndex(i + 2, 1).setText(inventory[i].id);
+      sheet.getRangeByIndex(i + 2, 2).setText(inventory[i].name);
+      sheet.getRangeByIndex(i + 2, 3).setText(inventory[i].description);
+      sheet
+          .getRangeByIndex(i + 2, 4)
+          .setNumber(inventory[i].quantity.toDouble());
+      sheet.getRangeByIndex(i + 2, 5).setNumber(inventory[i].price);
+    }
+
+    // Auto-fit columns for better readability
+    for (int col = 1; col <= 5; col++) {
+      sheet.autoFitColumn(col);
+    }
+
+    return await _saveExcelWithFilePicker(workbook, 'inventory_report.xlsx');
   }
 }

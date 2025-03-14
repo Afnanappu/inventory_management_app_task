@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inventory_management_app_task/core/components/custom_card.dart';
-import 'package:inventory_management_app_task/core/components/custom_pop_up_menu.dart';
 import 'package:inventory_management_app_task/core/components/popup_menu_button_with_edit_and_delete.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/core/constants/font_styles.dart';
@@ -15,12 +14,14 @@ class InventoryItemListTile extends ConsumerWidget {
   final int index;
   final InventoryItemModel itemModel;
   final void Function()? onTap;
+  final bool trailing;
 
   const InventoryItemListTile({
     super.key,
     required this.index,
     required this.itemModel,
     this.onTap,
+    this.trailing = true,
   });
 
   @override
@@ -29,9 +30,9 @@ class InventoryItemListTile extends ConsumerWidget {
 
     // Determine stock status color
     Color stockColor;
-    if (itemModel.quantity > 10) {
+    if (itemModel.quantity >= 50) {
       stockColor = AppColors.success;
-    } else if (itemModel.quantity >= 1) {
+    } else if (itemModel.quantity >= 10) {
       stockColor = AppColors.warning;
     } else {
       stockColor = AppColors.error;
@@ -114,7 +115,7 @@ class InventoryItemListTile extends ConsumerWidget {
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        formatMoney(number: itemModel.price),
+                        formatMoney(number: itemModel.price, haveSymbol: false),
                         style: AppFontStyle.saleTile.copyWith(
                           fontSize: 14,
                           color: AppColors.textPrimary,
@@ -127,18 +128,19 @@ class InventoryItemListTile extends ConsumerWidget {
             ),
 
             // Actions
-            PopupMenuButtonWithEditAndDelete(
-              onEditPressed: () {
-                context.push(
-                  AppRoutes.addOrUpdateItem,
-                  extra: {"isEdit": true, "itemModel": itemModel},
-                );
-              },
-              onDeletePressed: () {
-                provider.deleteItem(itemModel.id);
-              },
-              title: 'item',
-            ),
+            if (trailing)
+              PopupMenuButtonWithEditAndDelete(
+                onEditPressed: () {
+                  context.push(
+                    AppRoutes.addOrUpdateItem,
+                    extra: {"isEdit": true, "itemModel": itemModel},
+                  );
+                },
+                onDeletePressed: () {
+                  provider.deleteItem(itemModel.id);
+                },
+                title: 'item',
+              ),
           ],
         ),
       ),

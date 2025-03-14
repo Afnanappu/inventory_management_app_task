@@ -1,9 +1,12 @@
 import 'dart:developer';
 
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_management_app_task/app_dependencies.dart';
 import 'package:inventory_management_app_task/core/utils/custom_reg_exp.dart';
 import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
+import 'package:inventory_management_app_task/feature/inventory/models/inventory_metrics.dart';
 import 'package:inventory_management_app_task/feature/inventory/repository/inventory_repository.dart';
 import 'package:inventory_management_app_task/feature/inventory/services/inventory_services.dart';
 
@@ -114,4 +117,84 @@ final lowStockItemProvider = Provider<int>((ref) {
       inventoryState.asData?.value.where((item) => item.quantity <= 0).length;
   log('low stock count: $count');
   return count ?? 0;
+});
+
+// Inventory Metrics Provider
+final inventoryMetricsProvider = Provider<InventoryMetrics>((ref) {
+  final inventoryDataAsync = ref.watch(inventoryProvider);
+
+  if (inventoryDataAsync is AsyncLoading || inventoryDataAsync is AsyncError) {
+    return InventoryMetrics.empty();
+  }
+
+  final inventoryData = inventoryDataAsync.value ?? [];
+
+  if (inventoryData.isEmpty) {
+    return InventoryMetrics.empty();
+  }
+
+  // Calculate metrics
+  final totalItems = inventoryData.length;
+  final totalQuantity = inventoryData.fold<int>(
+    0,
+    (sum, item) => sum + item.quantity,
+  );
+  final totalValue = inventoryData.fold<double>(
+    0,
+    (sum, item) => sum + (item.price * item.quantity),
+  );
+
+  // Items with low stock (less than 10 units)
+  final lowStockItems =
+      inventoryData.where((item) => item.quantity < 10).toList();
+
+  // Calculate stock level distribution for pie chart
+  final stockLevels = [
+    PieChartSectionData(
+      value: lowStockItems.length.toDouble(),
+      title: 'Low',
+      color: Colors.red.shade400,
+      radius: 60,
+      titleStyle: const TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
+    PieChartSectionData(
+      value:
+          inventoryData
+              .where((item) => item.quantity >= 10 && item.quantity < 50)
+              .length
+              .toDouble(),
+      title: 'Medium',
+      color: Colors.amber.shade400,
+      radius: 60,
+      titleStyle: const TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
+    PieChartSectionData(
+      value:
+          inventoryData.where((item) => item.quantity >= 50).length.toDouble(),
+      title: 'High',
+      color: Colors.green.shade400,
+      radius: 60,
+      titleStyle: const TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
+  ];
+
+  return InventoryMetrics(
+    totalItems: totalItems,
+    totalQuantity: totalQuantity,
+    totalValue: totalValue,
+    lowStockItems: lowStockItems,
+    stockLevelSections: stockLevels,
+  );
 });

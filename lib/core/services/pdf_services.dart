@@ -2,17 +2,15 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:inventory_management_app_task/core/utils/format_date.dart';
 import 'package:inventory_management_app_task/feature/customers/view_model/customer_provider.dart';
+import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 import 'package:printing/printing.dart';
 
 class PdfService {
-
-  
   /// Generate a PDF sales report using the given [sales] and [ref] values.
   ///
   /// Returns a [File] if the PDF was successfully saved, or null if permission
@@ -27,7 +25,7 @@ class PdfService {
   ) async {
     final pdf = await _generateSalesReport(sales, ref);
 
-    return await _savePdfWithFilePicker(pdf);
+    return await _savePdfWithFilePicker(pdf, 'sales_report.pdf');
     // if (await Permission.storage.request().isGranted) {
     //   Directory? downloadsDir = Directory('/storage/emulated/0/Download');
 
@@ -94,10 +92,10 @@ class PdfService {
     return await pdf.save();
   }
 
-  Future<File?> _savePdfWithFilePicker(Uint8List pdf) async {
+  Future<File?> _savePdfWithFilePicker(Uint8List pdf, String fileName) async {
     String? outputFile = await FilePicker.platform.saveFile(
       dialogTitle: 'Save PDF',
-      fileName: 'sales_report.pdf',
+      fileName: fileName,
     );
 
     if (outputFile != null) {
@@ -119,6 +117,68 @@ class PdfService {
   Future<void> printSalesReport(List<SalesModel> sales, WidgetRef ref) async {
     final pdf = await _generateSalesReport(sales, ref);
     // Print the PDF
+    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf);
+  }
+
+  //====================
+
+  /// Generate a PDF inventory report
+  Future<File?> generateInventoryReport(
+    List<InventoryItemModel> inventory,
+  ) async {
+    final pdf = await _generateInventoryReport(inventory);
+    return await _savePdfWithFilePicker(pdf, 'inventory_report.pdf');
+  }
+
+  /// Generate the inventory report in PDF format
+  Future<Uint8List> _generateInventoryReport(
+    List<InventoryItemModel> inventory,
+  ) async {
+    final pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text(
+                'Inventory Report',
+                style: pw.TextStyle(
+                  fontSize: 24,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+              pw.SizedBox(height: 20),
+              pw.TableHelper.fromTextArray(
+                headers: ['ID', 'Name', 'Description', 'Quantity', 'Price'],
+                data:
+                    inventory.map((item) {
+                      return [
+                        item.id,
+                        item.name,
+                        item.description,
+                        item.quantity.toString(),
+                        '₹${item.price.toStringAsFixed(2)}',
+                      ];
+                    }).toList(),
+                border: pw.TableBorder.all(),
+                headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                cellAlignment: pw.Alignment.centerLeft,
+              ),
+            ],
+          );
+        },
+      ),
+    );
+
+    return await pdf.save();
+  }
+
+  /// Print Inventory Report
+  Future<void> printInventoryReport(List<InventoryItemModel> inventory) async {
+    final pdf = await _generateInventoryReport(inventory);
     await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf);
   }
 }

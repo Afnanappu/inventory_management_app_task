@@ -11,6 +11,7 @@ import 'package:inventory_management_app_task/feature/customers/view/screens/scr
 import 'package:inventory_management_app_task/feature/home/view/screens/screen_home.dart';
 import 'package:inventory_management_app_task/feature/inventory/view/screens/screen_add_or_update_inventory.dart';
 import 'package:inventory_management_app_task/feature/inventory/view/screens/screen_inventory.dart';
+import 'package:inventory_management_app_task/feature/inventory/view/screens/screen_inventory_report.dart';
 import 'package:inventory_management_app_task/feature/sales/view/screens/screen_sale_add.dart';
 import 'package:inventory_management_app_task/feature/sales/view/screens/screen_sales.dart';
 import 'package:inventory_management_app_task/feature/sales/view/screens/screen_sales_report.dart';
@@ -120,10 +121,10 @@ class AppRouter {
         path: AppRoutes.salesReport,
         builder: (context, state) => const ScreenSalesReport(),
       ),
-      // GoRoute(
-      //   path: '/items_report',
-      //   builder: (context, state) => const ItemsReportScreen(),
-      // ),
+      GoRoute(
+        path: AppRoutes.itemsReport,
+        builder: (context, state) => const ScreenInventoryReport(),
+      ),
       // GoRoute(path: '/export', builder: (context, state) => const ExportScreen()),
     ],
   );

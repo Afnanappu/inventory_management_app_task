@@ -23,7 +23,7 @@ class NavHomeWidget extends StatelessWidget {
           title: 'Items Report',
           icon: Icons.inventory_2_outlined,
           color: AppColors.surfaceGrey,
-          route: AppRoutes.inventory,
+          route: AppRoutes.itemsReport,
         ),
         HomeNavCard(
           context: context,

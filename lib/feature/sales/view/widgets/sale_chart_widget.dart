@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
+import 'package:inventory_management_app_task/core/utils/format_money.dart';
 import 'package:inventory_management_app_task/feature/sales/models/sales_metrics.dart';
 
 class SaleChartWidget extends StatelessWidget {
@@ -76,7 +77,7 @@ class SaleChartWidget extends StatelessWidget {
                           child: Text(
                             DateFormat('MM/dd').format(date),
                             style: const TextStyle(
-                              color: Color(0xff68737d),
+                              color: AppColors.textSecondary,
                               fontSize: 10,
                             ),
                           ),
@@ -142,8 +143,8 @@ class SaleChartWidget extends StatelessWidget {
                           touchedSpot.x.toInt(),
                         );
                         return LineTooltipItem(
-                          '${DateFormat('MM/dd').format(date)}: ₹${touchedSpot.y.toStringAsFixed(2)}',
-                          const TextStyle(color: Colors.black),
+                          '${DateFormat('MM/dd').format(date)}: ${formatMoney(number: touchedSpot.y)}',
+                          const TextStyle(color: Colors.white),
                         );
                       }).toList();
                     },
