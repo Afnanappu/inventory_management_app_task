@@ -43,4 +43,9 @@ class SalesRepository {
   ) async {
     return _salesService.getFilteredSalesByDateRange(dateRange);
   }
+
+  /// Retrieves a list of sales records for a specific customer.
+  List<SalesModel> getSalesByCustomer(String customerId) {
+    return _salesService.getSalesByCustomer(customerId);
+  }
 }

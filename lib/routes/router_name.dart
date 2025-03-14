@@ -8,6 +8,5 @@ class AppRoutes {
   static const String customers = '/customers';
   static const String salesReport = '/sales-report';
   static const String itemsReport = '/items-report';
-  // static const String reports = '/reports';
-  // static const String exports = '/exports';
+  static const String customersReport = '/customers-report';
 }

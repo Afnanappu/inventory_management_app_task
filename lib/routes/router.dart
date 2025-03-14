@@ -7,6 +7,8 @@ import 'package:inventory_management_app_task/app_dependencies.dart';
 import 'package:inventory_management_app_task/core/services/user_services.dart';
 import 'package:inventory_management_app_task/core/widgets/bottom_nav_bar.dart';
 import 'package:inventory_management_app_task/feature/auth/view/screen/screen_login.dart';
+import 'package:inventory_management_app_task/feature/customers/models/customer_model.dart';
+import 'package:inventory_management_app_task/feature/customers/view/screens/screen_customer_report.dart';
 import 'package:inventory_management_app_task/feature/customers/view/screens/screen_customers.dart';
 import 'package:inventory_management_app_task/feature/home/view/screens/screen_home.dart';
 import 'package:inventory_management_app_task/feature/inventory/view/screens/screen_add_or_update_inventory.dart';
@@ -125,7 +127,13 @@ class AppRouter {
         path: AppRoutes.itemsReport,
         builder: (context, state) => const ScreenInventoryReport(),
       ),
-      // GoRoute(path: '/export', builder: (context, state) => const ExportScreen()),
+      GoRoute(
+        path: AppRoutes.customersReport,
+        builder: (context, state) {
+          final customer = state.extra as CustomerModel;
+          return ScreenCustomerReport(customer: customer);
+        },
+      ),
     ],
   );
 }

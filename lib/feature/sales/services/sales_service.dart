@@ -85,28 +85,22 @@ class SalesService {
     return salesQuery.toList();
   }
 
+
+  /// Retrieves a list of sales records for a specific customer.
+  ///
+  /// The sales records are sorted by date in descending order.
+  ///
+  /// [customerId] is the ID of the customer whose sales records are to be fetched.
+  ///
+  /// Returns a list of [SalesModel] associated with the given customer ID.
+  List<SalesModel> getSalesByCustomer(String customerId) {
+    return _realm.query<SalesModel>('customerId == \$0 SORT(date DESC)', [
+      customerId,
+    ]).toList();
+  }
+
   /// Closes the Realm instance
   void close() {
     _realm.close();
   }
-}
-
-abstract class VehicleService {
-  void driveCar();
-  void changeEngine();
-}
-
-class Car implements VehicleService {
-  @override
-  void changeEngine() {}
-  
-  @override
-  void driveCar() {}
-}
-
-class Bike implements VehicleService {
-  @override
-  void changeEngine() {}
-  @override
-  void driveCar() {}
 }

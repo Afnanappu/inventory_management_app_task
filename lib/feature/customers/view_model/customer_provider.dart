@@ -5,6 +5,7 @@ import 'package:inventory_management_app_task/app_dependencies.dart';
 import 'package:inventory_management_app_task/feature/customers/models/customer_model.dart';
 import 'package:inventory_management_app_task/feature/customers/repository/customer_repository.dart';
 import 'package:inventory_management_app_task/feature/customers/services/customer_services.dart';
+import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 
 class CustomerProvider extends StateNotifier<AsyncValue<List<CustomerModel>>> {
   final CustomerRepository _repository;
@@ -76,6 +77,11 @@ final _customerRepositoryProvider = Provider<CustomerRepository>((ref) {
   return CustomerRepository(service);
 });
 
-
 //====================
 
+final customerSalesProvider = StateProvider<List<SalesModel>>((ref) {
+  // ref.watch(salesProvider.notifier).getSalesByCustomer(customerId)
+  return [];
+});
+
+final totalSalesAmountProvider = StateProvider<double>((ref) => 0.0);

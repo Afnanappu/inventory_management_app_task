@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_management_app_task/core/constants/colors.dart';
+import 'package:inventory_management_app_task/core/utils/format_money.dart';
 import 'package:inventory_management_app_task/feature/customers/view_model/customer_provider.dart';
 import 'package:inventory_management_app_task/feature/home/view/components/summary_card.dart';
 import 'package:inventory_management_app_task/feature/inventory/view_model/inventory_provider.dart';
@@ -22,7 +23,7 @@ class SummaryHomeWidget extends ConsumerWidget {
         children: [
           SummaryCard(
             title: 'Total Sales',
-            value: '₹${totalSale.toStringAsFixed(2)}',
+            value: formatMoney(number: totalSale),
             icon: Icons.currency_rupee_outlined,
             color: AppColors.primary,
           ),

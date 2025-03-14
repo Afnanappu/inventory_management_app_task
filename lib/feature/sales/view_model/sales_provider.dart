@@ -79,6 +79,10 @@ class SalesProvider extends StateNotifier<AsyncValue<List<SalesModel>>> {
   ) async {
     return await _repository.fetchFilteredSalesByDateRange(dateRange);
   }
+
+  List<SalesModel> getSalesByCustomer(String customerId) {
+    return _repository.getSalesByCustomer(customerId);
+  }
 }
 
 /// provides list of sales data and functions.

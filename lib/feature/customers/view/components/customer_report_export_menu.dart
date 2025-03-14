@@ -8,16 +8,22 @@ import 'package:inventory_management_app_task/core/constants/colors.dart';
 import 'package:inventory_management_app_task/core/services/excel_services.dart';
 import 'package:inventory_management_app_task/core/services/pdf_services.dart';
 import 'package:inventory_management_app_task/core/services/share_services.dart';
-import 'package:inventory_management_app_task/feature/inventory/models/inventory_item_model.dart';
+import 'package:inventory_management_app_task/feature/customers/models/customer_model.dart';
+import 'package:inventory_management_app_task/feature/sales/models/sales_model.dart';
 import 'package:inventory_management_app_task/feature/sales/view/widgets/buttons_for_add_new_sale_screen.dart';
 
-class InventoryExportWidget extends StatelessWidget {
-  const InventoryExportWidget({super.key, required this.inventoryData});
+class CustomerReportExportMenu extends ConsumerWidget {
+  const CustomerReportExportMenu({
+    super.key,
+    required this.customers,
+    required this.sales,
+  });
 
-  final AsyncValue<List<InventoryItemModel>> inventoryData;
+  final List<CustomerModel> customers;
+  final List<SalesModel> sales;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return CustomPopUpMenu(
       itemBuilder: (context) {
         return [
@@ -27,7 +33,7 @@ class InventoryExportWidget extends StatelessWidget {
             onTap: () async {
               final file = await getIt
                   .get<PdfService>()
-                  .generateInventoryReport(inventoryData.value!);
+                  .generateCustomerReportPdf(customers, sales, ref);
 
               if (file != null) {
                 showCustomSnackBar(
@@ -50,7 +56,7 @@ class InventoryExportWidget extends StatelessWidget {
             onTap: () async {
               final file = await getIt
                   .get<ExcelServices>()
-                  .generateInventoryExcelReport(inventoryData.value!);
+                  .generateCustomerReport(customers, sales, ref);
 
               if (file != null) {
                 showCustomSnackBar(
@@ -71,8 +77,10 @@ class InventoryExportWidget extends StatelessWidget {
             title: 'Print',
             icon: Icons.print,
             onTap: () async {
-              await getIt.get<PdfService>().printInventoryReport(
-                inventoryData.value!,
+              await getIt.get<PdfService>().printCustomerReport(
+                customers,
+                sales,
+                ref,
               );
             },
             iconColor: Colors.blue,
@@ -81,8 +89,10 @@ class InventoryExportWidget extends StatelessWidget {
             title: 'Share',
             icon: Icons.share,
             onTap: () async {
-              await getIt.get<ShareServices>().shareInventoryReport(
-                inventoryData.value!,
+              await getIt.get<ShareServices>().shareCustomerReport(
+                customers,
+                sales,
+                ref,
               );
             },
             iconColor: Colors.orange,

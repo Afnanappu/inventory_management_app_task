@@ -7,12 +7,14 @@ class MetricCard extends StatelessWidget {
     required this.value,
     required this.icon,
     required this.color,
+    this.margin,
   });
 
   final String title;
   final String value;
   final IconData icon;
   final Color color;
+  final EdgeInsetsGeometry? margin;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,7 @@ class MetricCard extends StatelessWidget {
       // ),
       child: Container(
         padding: const EdgeInsets.all(16),
+        margin: margin,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: Colors.white,

@@ -21,7 +21,7 @@ class InventoryStockLevelChartWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -42,7 +42,7 @@ class InventoryStockLevelChartWidget extends StatelessWidget {
                   child: PieChart(
                     PieChartData(
                       sectionsSpace: 2,
-                      centerSpaceRadius: 40,
+                      centerSpaceRadius: 30,
                       sections: metrics.stockLevelSections,
                     ),
                   ),
